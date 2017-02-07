@@ -1,0 +1,12 @@
+commit ec7b16d6fe59b2a461e8e4b38a6aad9b0709d7de
+Author: Vladislav Zinchuk <zima04zima@gmail.com>
+Date:   Tue Feb 7 12:33:43 2017 +0300
+
+    Rewrite status.txt
+
+commit a058892721488801e472e133e31d8e5ad821fa2b
+Author: Vladislav Zinchuk <zima04zima@gmail.com>
+Date:   Tue Feb 7 12:23:35 2017 +0300
+
+    add .gitignore
+
