@@ -1,5 +1,5 @@
 var idNews = 0;
-var allTags = ["cars", "politics", "hi-tech","sport","fashion","BOOM","Russia","IT"];
+var allTags = ["cars", "politics", "hi-tech", "sport", "fashion", "BOOM", "Russia", "IT"];
 
 var articles = [
     {
@@ -9,7 +9,7 @@ var articles = [
         createdAt: new Date('2017-02-27T23:00:00'),
         author: 'Vladislav Zinchuk',
         content: 'President Donald Trump has signed a new executive order placing a 90-day ban on people from six mainly Muslim nations.',
-        tags: ["politics","Russia"]
+        tags: ["politics", "Russia"]
     },
     {
         id: ++idNews,
@@ -18,7 +18,7 @@ var articles = [
         createdAt: new Date('2017-03-27T05:14:33'),
         author: 'Vasia Baranov ',
         content: 'IBM has made its quantum computing system commercially available to businesses and beefed up an existing system used by the research community.',
-        tags: ["cars","hi-tech"]
+        tags: ["cars", "hi-tech"]
     },
     {
         id: ++idNews,
@@ -36,7 +36,7 @@ var articles = [
         createdAt: new Date('2017-05-28T22:11:40'),
         author: 'Pavel Rykov',
         content: 'It will now face increasing pressure to introduce more human oversight of algorithms that sometimes struggle to differentiate between facts and fake news.',
-        tags: ["BOOM","Russia","IT"]
+        tags: ["BOOM", "Russia", "IT"]
     },
     {
         id: ++idNews,
@@ -45,7 +45,7 @@ var articles = [
         createdAt: new Date('2017-05-28T14:54:43'),
         author: 'James Gallagher',
         content: "Three UK-based scientists have won a prestigious prize worth 1m euros for studying the brain's reward centre.",
-        tags: ["hi-tech","sport"]
+        tags: ["hi-tech", "sport"]
     }
 ];
 
@@ -81,14 +81,30 @@ function getArticles(skip, top, filterConfig) {
 
 function showArticles(skip, top, filterConfig) {
     var newArticles = getArticles(skip, top, filterConfig);
-    //  newArticles[idNews++] = ( getArticle("2"));
-    //  addArticle({id : 7, title : "fuck off",summary : " lalalala", createdAt: new Date('2017-05-28T23:00:00'),author: "Vasia",content:"sapbfgsbdf" })
-    //  editArticle(4,{id : 7, title : "fuck off",summary : " lalalala", createdAt: new Date('2017-05-28T23:00:00'),author: "Vasia",content:"sapbfgsbdf" })
-    //  removeArticle(2);
-    //  addTag(3,"sport");
-    //  deleteTag(1,"Russia");
+    newArticles[idNews++] = ( getArticle("2"));
+    addArticle({
+        id: 7,
+        title: "Hello",
+        summary: " lalalala",
+        createdAt: new Date('2017-05-28T23:00:00'),
+        author: "Vasia",
+        content: "sapbfgsbdf",
+        tags: ["car"]
+    })
+    editArticle(4, {
+        id: 7,
+        title: "Holla",
+        summary: " lalalala",
+        createdAt: new Date('2017-05-28T23:00:00'),
+        author: "Vasia",
+        content: "sapbfgsbdf",
+        tags: ["car"]
+    })
+    removeArticle(2);
+    addTag(3, "sport");
+    deleteTag(1, "Russia");
     articles.forEach(function (item, i, newArticles) {
-        console.log(item.id + ' ' + item.summary + ' ' + item.title + ' ' + item.tags);
+        console.log(item.id + ' ' + item.author + ' ' + item.title + ' ' + item.summary + ' ' + item.tags);
     });
 }
 
@@ -106,9 +122,7 @@ function validateArticle(article) {
         && (typeof(article.createdAt) == "object")
         && (typeof(article.author) == "string" && article.author != null)
         && (typeof(article.content) == "string" && article.content != null)
-        && (article.tags.length > 0))
-    {
-        console.log("true");
+        && (article.tags && article.tags.length > 0)) {
         return true;
     }
     else
@@ -150,7 +164,7 @@ function removeArticle(id) {
 }
 
 function addTag(id, tag) {
-    if(isOldTag(tag) == true) {
+    if (isOldTag(tag) == true) {
         if (id <= idNews) {
             var size = articles[+id - 1].tags.length;
             articles[+id - 1].tags[size + 1] = tag;
@@ -161,22 +175,22 @@ function addTag(id, tag) {
 }
 
 function deleteTag(id, tag) {
-    var position ;
+    var position;
     if (id <= idNews) {
         size = articles[+id - 1].tags.length;
-        for(var i = 0; i < size; i++) {
-            if(articles[+id - 1].tags[i] == tag)
-                position = i ;
+        for (var i = 0; i < size; i++) {
+            if (articles[+id - 1].tags[i] == tag)
+                position = i;
         }
-        articles[+id - 1].tags.splice(i-1,1);
+        articles[+id - 1].tags.splice(i - 1, 1);
         return true;
     }
     else return false;
 }
 
 function isOldTag(tag) {
-    for(var i = 0; allTags.length > i; i++)
-        if(allTags[i] == tag)
+    for (var i = 0; allTags.length > i; i++)
+        if (allTags[i] == tag)
             return true;
     return false;
 }
