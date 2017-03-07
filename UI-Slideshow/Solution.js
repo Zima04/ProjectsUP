@@ -64,7 +64,7 @@ function getArticles(skip, top, filterConfig) {
             countOfArticals++;
         }
     }
-    else {
+    if (filterConfig && filterConfig.tags == undefined) {
         for (var i = skip; i < top + skip && i < idNews; i++) {
             if (filterConfig.author == articles[i].author) {
                 newArticals[countOfArticals] = articles[i];
@@ -72,6 +72,20 @@ function getArticles(skip, top, filterConfig) {
             }
         }
     }
+    if (filterConfig.tags != undefined) {
+        for (var i = skip; i < top + skip && i < idNews; i++) {
+            for (var k = 0; k < filterConfig.tags.length; k++)
+                for (var t = 0; t < articles[i].tags.length; t++)
+                    if (articles[i].tags[t] == filterConfig.tags[k]) {
+                        newArticals[countOfArticals] = articles[i];
+                        countOfArticals++;
+                        t = articles[i].tags.length;
+                        k = filterConfig.tags.length;
+                    }
+        }
+    }
+
+
     newArticals.sort(function (a, b) {
             return (a.createdAt < b.createdAt) - (b.createdAt < a.createdAt)
         }
@@ -81,29 +95,30 @@ function getArticles(skip, top, filterConfig) {
 
 function showArticles(skip, top, filterConfig) {
     var newArticles = getArticles(skip, top, filterConfig);
-    newArticles[idNews++] = ( getArticle("2"));
+    newArticles[idNews++] = ( getArticle("1"));
+    newArticles[idNews++] = ( getArticle("3"));
     addArticle({
-        id: 7,
-        title: "Hello",
-        summary: " lalalala",
-        createdAt: new Date('2017-05-28T23:00:00'),
-        author: "Vasia",
-        content: "sapbfgsbdf",
-        tags: ["car"]
+        id: 6,
+        title: "Arsenal lose",
+        summary: " Bayern humiliate Arsenal 10-2 on aggregate after Koscielny sees red",
+        createdAt: new Date('2017-03-08T00:01:34'),
+        author: "Paul Hassall",
+        content: "Bayern humiliate Arsenal 10-2 on aggregate after Koscielny sees red",
+        tags: ["sport"]
     })
     editArticle(4, {
         id: 7,
-        title: "Holla",
-        summary: " lalalala",
-        createdAt: new Date('2017-05-28T23:00:00'),
-        author: "Vasia",
-        content: "sapbfgsbdf",
-        tags: ["car"]
+        title: "Change news",
+        summary: "This news were changed",
+        createdAt: new Date('2017-03-07T23:40:52'),
+        author: "Le Buzz",
+        content: "This news were changed,method is work",
+        tags: ["car", "hi-tech"]
     })
-    removeArticle(2);
+    ///removeArticle(2);
     addTag(3, "sport");
     deleteTag(1, "Russia");
-    articles.forEach(function (item, i, newArticles) {
+    newArticles.forEach(function (item, i, newArticles) {
         console.log(item.id + ' ' + item.author + ' ' + item.title + ' ' + item.summary + ' ' + item.tags);
     });
 }
@@ -167,7 +182,7 @@ function addTag(id, tag) {
     if (isOldTag(tag) == true) {
         if (id <= idNews) {
             var size = articles[+id - 1].tags.length;
-            articles[+id - 1].tags[size + 1] = tag;
+            articles[+id - 1].tags.splice(size + 1, 0, tag);
             return true;
         }
     }
