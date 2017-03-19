@@ -2,7 +2,7 @@
 var articleModel = (function () {
 
     var idNews = 0;
-    var allTags = ["cars", "politics", "hi-tech", "sport", "fashion", "BOOM", "Russia", "IT"];
+    var tags = ["cars", "politics", "hi-tech", "sport", "fashion", "BOOM", "Russia", "IT"];
 
     var articles = [
         {
@@ -58,56 +58,112 @@ var articleModel = (function () {
     ];
 
     function getArticles(skip, top, filterConfig) {
-        if (skip == undefined)
+        if (skip == undefined) {
             skip = 0;
-        if (top == undefined)
-            return 0 ;
-        if (skip > top)
-            return 0;
-        if(top > articles.length)
-            top = articles.length;
-
-        var newArticals = [];
-        var countOfArticals = 0;
-        if (filterConfig == undefined) {
-            for (var i = skip; i < top + skip; i++) {
-                newArticals[countOfArticals] = articles[i];
-                countOfArticals++;
-            }
         }
-        if (filterConfig && filterConfig.tags == undefined) {
-            for (var i = skip; i < top + skip && i < idNews; i++) {
-                if (filterConfig.author == articles[i].author) {
-                    newArticals[countOfArticals] = articles[i];
-                    countOfArticals++;
+        if (skip >= articles.length) {
+            return null;
+        }
+        if (top == undefined) {
+            top = 10;
+        }
+
+        var newArticles = [];
+        var index = 0;
+
+        if (filterConfig == undefined) {
+            for (var i = skip; i < articles.length && i < top + skip; i++) {
+                newArticles[index] = articles[i];
+                index++;
+            }
+        } else {
+            if (filterConfig.author != undefined && filterConfig.tags != undefined && filterConfig.createdAt != undefined) {
+                for (var i = skip; i < articles.length && i < top + skip; i++) {
+                    if (filterConfig.author == articles[i].author && findTag(filterConfig.tags, articles[i].tags)
+                        && filterConfig.createdAt.getTime() == articles[i].createdAt.getTime()) {
+                        newArticles[index] = articles[i];
+                        index++;
+                    }
                 }
             }
-        }
-        if (filterConfig && filterConfig.tags != undefined) {
-            for (var i = skip; i < top + skip && i < idNews; i++) {
-                for (var k = 0; k < filterConfig.tags.length; k++)
-                    for (var t = 0; t < articles[i].tags.length; t++)
-                        if (articles[i].tags[t] == filterConfig.tags[k]) {
-                            newArticals[countOfArticals] = articles[i];
-                            countOfArticals++;
-                            t = articles[i].tags.length;
-                            k = filterConfig.tags.length;
-                        }
-            }
-        }
 
-        newArticals.sort(function (a, b) {
-                return (a.createdAt < b.createdAt) - (b.createdAt < a.createdAt)
+            if (filterConfig.author != undefined && filterConfig.tags != undefined && filterConfig.createdAt == undefined) {
+                for (var i = skip; i < articles.length && i < top + skip; i++) {
+                    if (filterConfig.author == articles[i].author && findTag(filterConfig.tags, articles[i].tags)) {
+                        newArticles[index] = articles[i];
+                        index++;
+                    }
+                }
             }
-        );
-        return newArticals;
+
+            if (filterConfig.author != undefined && filterConfig.tags == undefined && filterConfig.createdAt != undefined) {
+                for (var i = skip; i < articles.length && i < top + skip; i++) {
+                    if (filterConfig.author == articles[i].author && filterConfig.createdAt.getTime() == articles[i].createdAt.getTime()) {
+                        newArticles[index] = articles[i];
+                        index++;
+                    }
+                }
+            }
+
+            if (filterConfig.author != undefined && filterConfig.tags == undefined && filterConfig.createdAt == undefined) {
+                for (var i = skip; i < articles.length && i < top + skip; i++) {
+                    if (filterConfig.author == articles[i].author) {
+                        newArticles[index] = articles[i];
+                        index++;
+                    }
+                }
+            }
+
+            if (filterConfig.author == undefined && filterConfig.tags != undefined && filterConfig.createdAt != undefined) {
+                for (var i = skip; i < articles.length && i < top + skip; i++) {
+                    if (findTag(filterConfig.tags, articles[i].tags) && filterConfig.createdAt.getTime() == articles[i].createdAt.getTime()) {
+                        newArticles[index] = articles[i];
+                        index++;
+                    }
+                }
+            }
+
+            if (filterConfig.author == undefined && filterConfig.tags != undefined && filterConfig.createdAt == undefined) {
+                for (var i = skip; i < articles.length && i < top + skip; i++) {
+                    if (findTag(filterConfig.tags, articles[i].tags)) {
+                        newArticles[index] = articles[i];
+                        index++;
+                    }
+                }
+            }
+
+            if (filterConfig.author == undefined && filterConfig.tags == undefined && filterConfig.createdAt != undefined) {
+                for (var i = skip; i < articles.length && i < top + skip; i++) {
+                    if (filterConfig.createdAt.getTime() == articles[i].createdAt.getTime()) {
+                        newArticles[index] = articles[i];
+                        index++;
+                    }
+                }
+            }
+
+        }
+        newArticles.sort(function comparator(a, b) {
+            return b.createdAt - a.createdAt;
+        });
+        return newArticles;
+    }
+
+    function findTag(tag, tags) {
+        for (var i = 0; i < tags.length; i++) {
+            if (tag == tags[i]) {
+                return true;
+            }
+        }
+        return false;
     }
 
     function getArticle(id) {
-        if (idNews >= id)
-            return articles[+id - 1];
-        else
-            return 0;
+        var index = isArticle(id);
+        if (index == -1) {
+            return null;
+        } else {
+            return articles[index];
+        }
     }
 
     function validateArticle(article) {
@@ -134,63 +190,103 @@ var articleModel = (function () {
             return false;
     }
 
-    function editArticle(id, newArticle) {
-        if (idNews >= id) {
-            if (validateArticle(articles[+id - 1]) == true) {
-                if (newArticle.content != undefined)
-                    articles[+id - 1].content = newArticle.content;
-                if (newArticle.summary != undefined)
-                    articles[+id - 1].summary = newArticle.summary;
-                if (newArticle.title != undefined)
-                    articles[+id - 1].title = newArticle.title;
+    function editArticle(id, article) {
+            var index = isArticle(id);
+            if (index == -1) {
+                return false;
             }
-            else
-                return 0;
+            if (article.id != undefined && article.author != undefined && article.createdAt != undefined) {
+                return false;
+            }
+            if (article.title != undefined && typeof article.title == "string" && article.title.length > 0 &&
+                article.title.length <= 100) {
+                articles[index].title = article.title;
+            }
+            if (article.summary != undefined && typeof article.summary == "string" && article.summary.length > 0 &&
+                article.summary.length <= 200) {
+                articles[index].summary = article.summary;
+
+            }
+            if (article.content != undefined && typeof article.content == "string" && article.content.length > 0) {
+                articles[index].content = article.content;
+            }
+            if (article.tags != undefined && article.tags.length >= 1 && article.tags.length <= 5) {
+                articles[index].tags = article.tags;
+            }
+            return true;
         }
-        else
-            return 0;
+
+    function isArticle(id) {
+        var res = -1;
+        for (var i = 0; i < articles.length; i++) {
+            if (articles[i].id === id) {
+                return i;
+            }
+        }
+        return res;
     }
 
     function removeArticle(id) {
-        if (idNews >= id) {
-            articles.splice(+id - 1, 1)
+        var index = isArticle(id);
+        if (index == -1) {
+            return false;
+        } else {
+            articles.splice(index, 1);
             return true;
         }
-        else return false;
     }
 
-    function addTag(id, tag) {
-        if (isOldTag(tag) == true) {
-            if (id <= idNews) {
-                var size = articles[+id - 1].tags.length;
-                articles[+id - 1].tags.splice(size + 1, 0, tag);
-                return true;
+    function isContainTag(tag) {
+        if (tag != undefined && typeof tag == "string") {
+            for (var i = 0; i < tags.length; i++) {
+                if (tag === tags[i]) {
+                    return true;
+                }
             }
+            return false;
+        } else {
+            return false;
         }
-        else return false;
     }
 
-    function deleteTag(id, tag) {
-        var position;
-        if (id <= idNews) {
-            size = articles[+id - 1].tags.length;
-            for (var i = 0; i < size; i++) {
-                if (articles[+id - 1].tags[i] == tag)
-                    position = i;
-            }
-            articles[+id - 1].tags.splice(i - 1, 1);
+    function addToTagsArray(tag) {
+        var index = tags.length;
+        for (var i = 0; i < tag.length; i++) {
+            if (!isContainTag(tag[i]))
+                tags[index++] = tag[i];
+        }
+    }
+
+    function addTagToArticle(id, tag) {
+        var index = isArticle(id);
+        if (index != -1 && tag != undefined && typeof tag == "string" && isContainTag(tag)) {
+            articles[index].tags[tags.length] = tag;
             return true;
+        } else {
+            return false;
         }
-        else return false;
     }
 
-    function isOldTag(tag) {
-        for (var i = 0; allTags.length > i; i++)
-            if (allTags[i] == tag)
+    function deleteTagInArticle(id, tag) {
+        var index = isArticle(id);
+        if (index != -1 && tag != undefined && typeof tag == "string" && isContainTag(tag)) {
+            var indexOfTags = -1;
+            for (var i = 0; i < articles[index].tags.length; i++) {
+                if (articles[index].tags[i] == tag) {
+                    indexOfTags = i;
+                    break;
+                }
+            }
+            if (indexOfTags != -1) {
+                articles[index].tags.splice(indexOfTags, 1);
                 return true;
-        return false;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
-
 
     return {
         getArticles: getArticles,
@@ -198,8 +294,10 @@ var articleModel = (function () {
         validateArticle: validateArticle,
         editArticle: editArticle,
         removeArticle: removeArticle,
-        addTag: addTag,
-        deleteTag: deleteTag
+        addToTagsArray:addToTagsArray,
+        addTagToArticle : addTagToArticle,
+        deleteTagInArticle: deleteTagInArticle,
+        idNews: idNews
     };
 }());
 

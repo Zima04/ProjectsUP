@@ -1,15 +1,13 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <title>News</title>
     <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <script type="text/javascript" src="slideshow.js"></script>
-    <script type="text/javascript" src="temp.js"></script>
     <script type="text/javascript" src="authorization.js"></script>
 </head>
-<body>
+
 <div class="wrapper">
     <div class="content">
         <header>
@@ -39,31 +37,20 @@
                 <input type="search" name="q">
             </ul>
         </nav>
-        <div class="slidebox">
-            <img width="250" height="160" id="first-slide">
-            <img width="250" height="160" id="second-slide">
-            <img width="250" height="160" id="third-slide">
-            <div class="textToSlide">
-                <p id="slide-text-first"></p>
-                <p id="slide-text-second"></p>
-                <p id="slide-text-third"></p>
-            </div>
+    </div>
+    <div class="block-add-news">
+        <div class="user-information">
+            <a href="index.html"><img class="user-picture" src="images/bender.png"alt="Person"> </a><br>
+            <a href="#" id="user-name"> Валдис Зинчукас </a>
         </div>
-        <aside>
-            <nav>
-                <ul class="aside-menu">
-                    <a href="index.html"><img class="mini-logo" src="images/logo.png" width="165" height="50"></a>
-                    <h2>Последние новости</h2>
-                    <li><span class="time">18:17 АФИША</span><a href="index.html"><br>Достучаться до небес</a></li>
-                    <li><span class="time">15:43 СПОРТ</span><a href="index.html"><br>Край моря</a></li>
-                    <li><span class="time">14:32 ПРОИСШЕСТВИЯ</span><a href="index.html"><br>Успокой себя</a></li>
-                    <li><span class="time">12:30 ПОЛИТИКА</span><a href="index.html"><br>Жизнь большого города</a></li>
-                    <li><span class="time">07:18 АФИША</span><a href="index.html"><br>Быстрый поток</a></li>
-                </ul>
-            </nav>
-        </aside>
-        <aside class="newsbox">
-        </aside>
+        <div class="field-to-news">
+            <p> Добавить новость </p>
+            <textarea class="name-item" placeholder="Заголовок"></textarea>
+            <textarea class="message" rows="15" cols="46" placeholder="Поле для новости"></textarea>
+            <input type="file"class="take-picture">
+            <textarea class="tags" placeholder="Поле для тегов"></textarea>
+            <a href="#" class="add-item">Добавить новость</a>
+        </div>
     </div>
     <footer>
         <div class="footer-box">
@@ -84,26 +71,7 @@
         </div>
     </footer>
 </div>
-<template id="template-article-list-item">
-    <div class="article-list-item">
-        <a href="index.html"><h2 class="article-list-item-title" ></h2></a>
-        <img class="article-list-title-img">
-        <p class="article-list-item-summary">
-        </p>
-        <div class="article-list-item-meta">
-            <span>Автор: <span class="article-list-item-author"></span></span>
-            <span class="publicate-date">Опубликована: <span class="article-list-item-date"></span></span>
-        </div>
-        <div class="article-list-item-tags" >
-            <span><a id="article-list-item-tags-first"></a></span>
-            <span> <a id="article-list-item-tags-second"></a></span>
-            <span><a id="article-list-item-tags-third"></a></span>
-            <span><a id="article-list-item-tags-fourth"></a></span>
-            <span> <a id="article-list-item-tags-fifth"></a></span>
-            <button class="delete-item">Delete news</button>
-        </div>
-    </div>
-</template>
-<script type="text/javascript">changeSlide();</script>
+<body>
+
 </body>
 </html>
