@@ -50,6 +50,14 @@ function logIn() {
 function addUserUI() {
     var username = localStorage.getItem("username");
     if (username) {
+        var arr = document.getElementsByClassName("delete-item");
+        for (var i = 0; i < arr.length; i++) {
+            arr[i].style.display = "block";
+        }
+        var arr2 = document.getElementsByClassName(" edit-item");
+        for (var i = 0; i < arr.length; i++) {
+            arr2[i].style.display = "block";
+        }
         document.getElementById("username").innerHTML = "Hi, " + username + "!";
         document.querySelector(".dropdown-button").style.visibility = "visible";
         document.querySelector(".dropdown-categories").style.visibility = "visible";
@@ -62,8 +70,16 @@ function addUserUI() {
 
 function authorize(){
     localStorage.removeItem("username");
-    document.querySelector(".delete-item").style.visibility = "hidden";
+    //document.querySelector(".delete-item").style.visibility = "hidden";
     window.location = "index.html";
+    var arr = document.getElementsByClassName("delete-item");
+    for (var i = 0; i < arr.length; i++) {
+        arr[i].style.display = "none";
+    }
+    var arr2 = document.getElementsByClassName("edit-item");
+    for (var i = 0; i < arr.length; i++) {
+        arr2[i].style.display = "none";
+    }
 }
 
 document.addEventListener('DOMContentLoaded', addUserUI);

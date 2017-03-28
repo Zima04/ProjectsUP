@@ -257,6 +257,9 @@ var articleModel = (function ()     {
         if (article.content != undefined && typeof article.content == "string" && article.content.length > 0) {
             articles[index].content = article.content;
         }
+        if (article.img != undefined && typeof article.img == "string" && article.img.length > 0) {
+            articles[index].img = article.img;
+        }
         if (article.tags != undefined && article.tags.length >= 1 && article.tags.length <= 5) {
             articles[index].tags = article.tags;
         }

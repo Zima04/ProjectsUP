@@ -22,7 +22,6 @@ function getItemFromFull(elem){
     document.blockChangeItem.setAttribute('get-id', article.id) ;
     document.getElementById('get-name').value = article.title;
     document.getElementById('get-message').value = article.summary;
-    // document.getElementById('get-picture').setAttribute("src", article.img);
     var newTags = "";
     for (var i = 0; i < article.tags.length; i++) {
         newTags += "#" + article.tags[i] + " ";
@@ -34,12 +33,14 @@ function changeFields(id) {
     var head = document.blockChangeItem.head.value;
     var message = document.blockChangeItem.message.value;
     var tags = document.blockChangeItem.tags.value;
+    var image = document.blockChangeItem.image.value;
     var newTags = tags.split(' ');
     articleModel.editArticle(id,{
         title: head,
         summary: message,
         createdAt: new Date(),
         content: message,
+        img: image,
         tags : newTags
     });
     var newArticles = articleModel.getArticles(0,articleModel.getLenth());
