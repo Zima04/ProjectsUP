@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>News</title>
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <script type="text/javascript" src="mainFunctions.js"></script>
+    <script type="text/javascript" src="authorization.js"></script>
+</head>
+<div class="wrapper">
+    <div class="content">
+        <header>
+            <a href="index.html"><img class="header-logo" src="images/logo.png" alt="Company logo"></a>
+            <div class="log-in">
+                <a href="index.html"><img class="header-icon-man" src="images/logo-in.png"alt="Input logo"> </a>
+                <a href="enter.html" onclick="logIn();" id="username"> Войти</a>
+                <div class="dropdown-block">
+                    <button type="submit" class="dropdown-button"><img src="images/down-funk.png"></button>
+                    <div class="dropdown-categories">
+                        <a href="add.html">Добавить</a>
+                        <a href="add.html">Редактировать</a>
+                        <a href="" onclick="authorize()">Выйти</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <nav>
+            <ul class="top-menu">
+                <li><a onclick="sortByTime()">Последние</a></li>
+                <li><a onclick="sortByBOOM()">Происшествия</a></li>
+                <li><a onclick="sortByTagPolitics()">Политика</a></li>
+                <li><a onclick="sortByTagSport()">Спорт</a></li>
+                <li><a onclick="sortByAfiha()">Афиша</a></li>
+                <li><a onclick="sortByHiTech()">Hi-tech</a></li>
+                <li><a onclick="sortByCars()">Авто</a></li>
+                <span> Поиск</span>
+                <input type="search" name="q">
+            </ul>
+        </nav>
+    </div>
+    <div class="block-error">
+            <p> Error 404 </p>
+            <img class="error-picture" src="images/Error.png">
+             <a href="index.html" class="error-return">На главную</a>
+    </div>
+    <footer>
+        <div class="footer-box">
+            <div class="footblock">
+                <img class="footer-logo" src="images/logo.png">
+                <p class="my-name"> Владислав Зинчук ФПМИ 8 группа</p>
+            </div>
+            <div class="footblock2">
+                <img class="footer-icons" src="images/social-small.png">
+                <p>Мы в социальных сетях</p>
+                <img class="footer-google" src="images/plus.png" height="50px" width="50px">
+                <p class="adress-google">zima04zima@gmail.com</p>
+                <p class="version">Версия 1.0</p>
+            </div>
+            <div class="footblock3">
+                <img class="footer-browser" src="images/browser.png" height="80px" width="80px">
+            </div>
+        </div>
+    </footer>
+</div>
+<body>
+
+</body>
+</html>
