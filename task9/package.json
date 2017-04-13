@@ -1,0 +1,19 @@
+{
+  "name": "vlad",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zima04/ProjectsUP.git"
+  },
+  "author": "vlad",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zima04/ProjectsUP/issues"
+  },
+  "homepage": "https://github.com/Zima04/ProjectsUP#readme"
+}
