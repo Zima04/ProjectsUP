@@ -1,5 +1,5 @@
 function lookItem(el) {
-    var article = articleModel.getArticle(el.dataset.id);
+    let article = articleModel.getArticle(el.dataset.id);
     document.getElementById('idItem').setAttribute('idItem', article.id) ;
     document.querySelector('.main-page').style.display = 'none';
     document.querySelector('.full-news').style.display = 'block';
@@ -21,7 +21,7 @@ function lookItem(el) {
     window.scrollTo(0,0);
 }
 
-var options = {
+let options = {
     year: 'numeric',
     month: 'long',
     day: 'numeric',

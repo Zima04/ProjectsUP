@@ -1,8 +1,8 @@
-var express = require('express');
-var app = express();
-var db = require('diskdb');
+let express = require('express');
+let app = express();
+let db = require('diskdb');
 db.connect('./db', ['arrayOfArticales']);
-var bodyParser = require('body-parser');
+let bodyParser = require('body-parser');
 
 app.set('port', (process.env.PORT || 3000));
 app.use(express.static(__dirname + '/public'));

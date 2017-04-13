@@ -1,31 +1,31 @@
 function getInformation(){
-    var tem = JSON.parse(dbModel.getArrayOfArticals());
+    let tem = JSON.parse(dbModel.getArrayOfArticals());
     if(tem) {
         articleModel.stringToDate(tem);
         articleModel.reWrite(tem);
     }
-    var newArticals = articleModel.getArticles(0,5);
-    var adress = "Item";
-    var stringId ="get-id";
-    for(var j = 0 ; j < 5; j++) {
+    let newArticles = articleModel.getArticles(0,5);
+    let adress = "Item";
+    let stringId ="get-id";
+    for(let j = 0 ; j < 5; j++) {
         adress = "Item" + j;
-        document.getElementById(stringId+j).setAttribute(stringId + j,newArticals[j].id)
-        document.getElementsByClassName(adress)[0].childNodes[1].textContent = newArticals[j].createdAt.toLocaleDateString("ru", options1);
-        var newTags = "";
-        for (var i = 0; i < newArticals[j].tags.length; i++) {
-            newTags += "#" + newArticals[j].tags[i] + " ";
+        document.getElementById(stringId+j).setAttribute(stringId + j,newArticles[j].id);
+        document.getElementsByClassName(adress)[0].childNodes[1].textContent = newArticles[j].createdAt.toLocaleDateString("ru", options1);
+        let newTags = "";
+        for (let i = 0; i < newArticles[j].tags.length; i++) {
+            newTags += "#" + newArticles[j].tags[i] + " ";
         }
         document.getElementsByClassName(adress)[0].childNodes[3].textContent = newTags;
-        document.getElementsByClassName(adress)[0].childNodes[6].textContent = newArticals[j].title;
+        document.getElementsByClassName(adress)[0].childNodes[6].textContent = newArticles[j].title;
     }
 }
-var options1 = {
+let options1 = {
     hour: 'numeric',
     minute: 'numeric',
-}
+};
 
 function lookItemFromBar(el) {
-    var article = articleModel.getArticle(el.id);
+    let article = articleModel.getArticle(el.id);
     document.querySelector('.main-page').style.display = 'none';
     document.querySelector('.full-news').style.display = 'block';
     document.querySelector('.article-item-title').textContent = article.title;
@@ -44,12 +44,3 @@ function lookItemFromBar(el) {
     if(article.tags[4])
         document.querySelector('#article-tags-fifth').textContent = "#" + article.tags[4];
 }
-
-var options = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric'
-};

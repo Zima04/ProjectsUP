@@ -1,31 +1,31 @@
 function search() {
-    var string = document.getElementById("searchString").value;
-    var articals = articleModel.getArticles(0,articleModel.getLenth());
-    var newArticals= [] ;
-    var countOfArticals = 0;
-    for(var i = 0 ; i < articleModel.getLenth(); i++ ) {
-        if (articals[i].title.indexOf(string) > -1) {
-            newArticals[countOfArticals] = articals[i];
+    let string = document.getElementById("searchString").value;
+    let articles = articleModel.getArticles(0,articleModel.getLength());
+    let newArticles= [] ;
+    let countOfArticals = 0;
+    for(let i = 0 ; i < articleModel.getLength(); i++ ) {
+        if (articles[i].title.indexOf(string) > -1) {
+            newArticles[countOfArticals] = articles[i];
             countOfArticals++;
             continue;
         }
-        if (articals[i].summary.indexOf(string) > -1) {
-            newArticals[countOfArticals] = articals[i];
+        if (articles[i].summary.indexOf(string) > -1) {
+            newArticles[countOfArticals] = articles[i];
             countOfArticals++;
             continue;
         }
-        if (articals[i].author.indexOf(string) > -1) {
-            newArticals[countOfArticals] = articals[i];
+        if (articles[i].author.indexOf(string) > -1) {
+            newArticles[countOfArticals] = articles[i];
             countOfArticals++;
             continue;
         }
-        if (articals[i].content.indexOf(string) > -1) {
-            newArticals[countOfArticals] = articals[i];
+        if (articles[i].content.indexOf(string) > -1) {
+            newArticles[countOfArticals] = articles[i];
             countOfArticals++;
         }
-        for (var j = 0; j < articals[i].tags.length; j++) {
-            if (articals[i].tags[j].indexOf(string) > -1) {
-                newArticals[countOfArticals] = articals[i];
+        for (let j = 0; j < articles[i].tags.length; j++) {
+            if (articles[i].tags[j].indexOf(string) > -1) {
+                newArticles[countOfArticals] = articles[i];
                 countOfArticals++;
                 break;
         }
@@ -37,7 +37,7 @@ function search() {
         return 0;
     }
     articleRenderer.removeArticlesFromDom();
-    articleRenderer.insertArticlesInDOM(newArticals);
+    articleRenderer.insertArticlesInDOM(newArticles);
     document.querySelector(".pagination-button").style.visibility = "hidden";
     document.querySelector(".main-page").style.display = "inline-block";
     document.querySelector(".edit-news").style.display = "none";

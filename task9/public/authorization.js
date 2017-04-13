@@ -1,9 +1,9 @@
 "use strict";
 
-var username = null;
+let username = null;
 
-var userModel = (function () {
-    var users = [
+let userModel = (function () {
+    let users = [
         {
             "username": "Alexey",
             "password": "bolvan"
@@ -16,7 +16,7 @@ var userModel = (function () {
 
     function checkForLogIn(name, password) {
         if (name && password && typeof name == "string" && typeof password == "string") {
-            for (var i = 0; i < users.length; i++) {
+            for (let i = 0; i < users.length; i++) {
                 if (users[i].username == name && users[i].password == password)
                     return true;
             }
@@ -36,8 +36,8 @@ function showLodInPage() {
     document.querySelector(".in").style.display = "block";
 }
 function logIn() {
-    var name = document.blockAutorization.username.value;
-    var password = document.blockAutorization.password.value;
+    let name = document.blockAutorization.username.value;
+    let password = document.blockAutorization.password.value;
     if (userModel.checkForLogIn(name, password)) {
         username = name;
         localStorage.setItem("username", username);
@@ -48,14 +48,14 @@ function logIn() {
 }
 
 function addUserUI() {
-    var username = localStorage.getItem("username");
+    let username = localStorage.getItem("username");
     if (username) {
-        var arr = document.getElementsByClassName("delete-item");
-        for (var i = 0; i < arr.length; i++) {
+        let arr = document.getElementsByClassName("delete-item");
+        for (let i = 0; i < arr.length; i++) {
             arr[i].style.display = "block";
         }
-        var arr2 = document.getElementsByClassName(" edit-item");
-        for (var i = 0; i < arr.length; i++) {
+        let arr2 = document.getElementsByClassName(" edit-item");
+        for (let i = 0; i < arr.length; i++) {
             arr2[i].style.display = "block";
         }
         document.getElementById("username").innerHTML = "Hi, " + username + "!";
@@ -70,14 +70,13 @@ function addUserUI() {
 
 function authorize(){
     localStorage.removeItem("username");
-    //document.querySelector(".delete-item").style.visibility = "hidden";
     window.location = "index.html";
-    var arr = document.getElementsByClassName("delete-item");
-    for (var i = 0; i < arr.length; i++) {
+    let arr = document.getElementsByClassName("delete-item");
+    for (let i = 0; i < arr.length; i++) {
         arr[i].style.display = "none";
     }
-    var arr2 = document.getElementsByClassName("edit-item");
-    for (var i = 0; i < arr.length; i++) {
+    let arr2 = document.getElementsByClassName("edit-item");
+    for (let i = 0; i < arr.length; i++) {
         arr2[i].style.display = "none";
     }
 }

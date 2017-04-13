@@ -1,112 +1,11 @@
-var articleModel = (function ()     {
+let articleModel = (function () {
 
-    var idNews = 0;
-    var arrayOftags = ["cars", "politics", "hi-tech", "sport", "fashion", "BOOM", "Russia", "IT"];
-    var articles = [{}];
-    /*
-    var articles = [
-        {
-            id: ++idNews,
-            title: 'Trump signs new immigration order',
-            summary: 'What is different about the new order?What is different about the new order?What is different about the new order?What is different about the new order?What is different about the new order?',
-            createdAt: new Date(2016, 0, 27, 23, 35, 0),
-            author: 'Vladislav Zinchuk',
-            content: 'President Donald Trump has signed a new executive order placing a 90-day ban on people from six mainly Muslim nations.',
-            tags: ["politics", "Russia"],
-            img: 'images/slide2.jpg'
-        },
-        {
-            id: ++idNews,
-            title: "IBM's online quantum machine gets faster",
-            summary: 'Tricky problem',
-            createdAt: new Date(2015, 3, 27, 5, 14, 33),
-            author: 'Vasia Baranov',
-            content: 'IBM has made its quantum computing system commercially available to businesses and beefed up an existing system used by the research community.',
-            tags: ["cars", "hi-tech"],
-            img: 'images/slide3.jpg'
-        },
-        {
-            id: ++idNews,
-            title: 'Gilmore Girls: The case for and against another return',
-            summary: 'Gilmore Girls could be returning to our screens. Again.',
-            createdAt: new Date(2014, 6, 2, 6, 32, 31),
-            author: 'Maria Lopova',
-            content: 'The show originally ran from 2000 to 2007 but Netflix revived it last year for four feature-length specials.',
-            tags: ["fashion"],
-            img: 'images/slide1.jpg'
-        },
-        {
-            id: ++idNews,
-            title: "Google's fake news Snippets",
-            summary: 'Algorithms that sometimes struggle',
-            createdAt: new Date(2013, 3, 27, 22, 14, 40),
-            author: 'Pavel Rykov',
-            content: 'It will now face increasing pressure to introduce more human oversight of algorithms that sometimes struggle to differentiate between facts and fake news.',
-            tags: ["BOOM", "Russia", "IT"],
-            img: 'images/slide6.jpg'
-        },
-        {
-            id: ++idNews,
-            title: 'Prize for cracking brain feel good system',
-            summary: "The UK based winners cracked the brain's reward centre",
-            createdAt: new Date(2012, 5, 3, 17, 14, 20),
-            author: 'James Gallagher',
-            content: "Three UK-based scientists have won a prestigious prize worth 1m euros for studying the brain's reward centre.",
-            tags: ["hi-tech", "sport"],
-            img: 'images/slide2.jpg'
-        }, {
-            id: ++idNews,
-            title: 'Trump signs new immigration order',
-            summary: 'What is different about the new order?What is different about the new order?What is different about the new order?What is different about the new order?What is different about the new order?',
-            createdAt: new Date(2011, 0, 27, 23, 35, 0),
-            author: 'Vladislav Zinchuk',
-            content: 'President Donald Trump has signed a new executive order placing a 90-day ban on people from six mainly Muslim nations.',
-            tags: ["politics", "Russia"],
-            img: 'images/slide2.jpg'
-        },
-        {
-            id: ++idNews,
-            title: "IBM's online quantum machine gets faster",
-            summary: 'Tricky problem',
-            createdAt: new Date(2010, 3, 27, 5, 14, 33),
-            author: 'Vasia Baranov ',
-            content: 'IBM has made its quantum computing system commercially available to businesses and beefed up an existing system used by the research community.',
-            tags: ["cars", "hi-tech"],
-            img: 'images/slide3.jpg'
-        },
-        {
-            id: ++idNews,
-            title: 'Gilmore Girls: The case for and against another return',
-            summary: 'Gilmore Girls could be returning to our screens. Again.',
-            createdAt: new Date(2009, 6, 2, 6, 32, 31),
-            author: 'Maria Lopova',
-            content: 'The show originally ran from 2000 to 2007 but Netflix revived it last year for four feature-length specials.',
-            tags: ["fashion"],
-            img: 'images/slide1.jpg'
-        },
-        {
-            id: ++idNews,
-            title: "Google's fake news Snippets",
-            summary: 'Algorithms that sometimes struggle',
-            createdAt: new Date(2008, 3, 27, 22, 14, 40),
-            author: 'Pavel Rykov',
-            content: 'It will now face increasing pressure to introduce more human oversight of algorithms that sometimes struggle to differentiate between facts and fake news.',
-            tags: ["BOOM", "Russia", "IT"],
-            img: 'images/slide6.jpg'
-        },
-        {
-            id: ++idNews,
-            title: 'Prize for cracking brain feel good system',
-            summary: "The UK based winners cracked the brain's reward centre",
-            createdAt: new Date(2007, 5, 3, 17, 14, 20),
-            author: 'James Gallagher',
-            content: "Three UK-based scientists have won a prestigious prize worth 1m euros for studying the brain's reward centre.",
-            tags: ["hi-tech", "sport"],
-            img: 'images/slide2.jpg'
-        }
-    ];
-*/
-    function getArticles(skip, top, filterConfig) {
+    let idNews = 0;
+    let arrayOfTags = ["cars", "politics", "hi-tech", "sport", "fashion", "BOOM", "Russia", "IT"];
+    let articles = [{}];
+    let getArticles,getArticle,validateArticle,findTag,addArticle,editArticle,isArticle,removeArticle,isContainTag,addToTagsArray,addTagToArticle,deleteTagInArticle,getLength,reWrite,stringToDate,replaceArticles;
+
+    getArticles = (skip, top, filterConfig) =>{
         if (skip == undefined) {
             skip = 0;
         }
@@ -118,108 +17,92 @@ var articleModel = (function ()     {
         }
 
         articles.sort(function comparator(a, b) {
-                 return b.createdAt - a.createdAt;
-             });
+            return b.createdAt - a.createdAt;
+        });
 
-        var newArticles = [];
-        var index = 0;
+        let newArticles = [];
 
         if (filterConfig == undefined) {
-            for (var i = skip; i < articles.length && i < top + skip; i++) {
-                newArticles[index] = articles[i];
-                index++;
+            for (let i = skip; i < articles.length && i < top + skip; i++) {
+                newArticles.push(articles[i]);
             }
         } else {
             if (filterConfig.author != undefined && filterConfig.tags != undefined && filterConfig.createdAt != undefined) {
-                for (var i = skip; i < articles.length && i < top + skip; i++) {
+                for (let i = skip; i < articles.length && i < top + skip; i++) {
                     if (filterConfig.author == articles[i].author && findTag(filterConfig.tags, articles[i].tags)
                         && filterConfig.createdAt.getTime() == articles[i].createdAt.getTime()) {
-                        newArticles[index] = articles[i];
-                        index++;
+                        newArticles.push(articles[i]);
                     }
                 }
             }
 
             if (filterConfig.author != undefined && filterConfig.tags != undefined && filterConfig.createdAt == undefined) {
-                for (var i = skip; i < articles.length && i < top + skip; i++) {
+                for (let i = skip; i < articles.length && i < top + skip; i++) {
                     if (filterConfig.author == articles[i].author && findTag(filterConfig.tags, articles[i].tags)) {
-                        newArticles[index] = articles[i];
-                        index++;
+                        newArticles.push(articles[i]);
                     }
                 }
             }
 
             if (filterConfig.author != undefined && filterConfig.tags == undefined && filterConfig.createdAt != undefined) {
-                for (var i = skip; i < articles.length && i < top + skip; i++) {
+                for (let i = skip; i < articles.length && i < top + skip; i++) {
                     if (filterConfig.author == articles[i].author && filterConfig.createdAt.getTime() == articles[i].createdAt.getTime()) {
-                        newArticles[index] = articles[i];
-                        index++;
+                        newArticles.push(articles[i]);
                     }
                 }
             }
 
             if (filterConfig.author != undefined && filterConfig.tags == undefined && filterConfig.createdAt == undefined) {
-                for (var i = skip; i < articles.length && i < top + skip; i++) {
+                for (let i = skip; i < articles.length && i < top + skip; i++) {
                     if (filterConfig.author == articles[i].author) {
-                        newArticles[index] = articles[i];
-                        index++;
+                        newArticles.push(articles[i]);
                     }
                 }
             }
 
             if (filterConfig.author == undefined && filterConfig.tags != undefined && filterConfig.createdAt != undefined) {
-                for (var i = skip; i < articles.length && i < top + skip; i++) {
+                for (let i = skip; i < articles.length && i < top + skip; i++) {
                     if (findTag(filterConfig.tags, articles[i].tags) && filterConfig.createdAt.getTime() == articles[i].createdAt.getTime()) {
-                        newArticles[index] = articles[i];
-                        index++;
+                        newArticles.push(articles[i]);
                     }
                 }
             }
 
             if (filterConfig.author == undefined && filterConfig.tags != undefined && filterConfig.createdAt == undefined) {
-                for (var i = skip; i < articles.length && i < top + skip; i++) {
+                for (let i = skip; i < articles.length && i < top + skip; i++) {
                     if (findTag(filterConfig.tags, articles[i].tags)) {
-                        newArticles[index] = articles[i];
-                        index++;
+                        newArticles.push(articles[i]);
                     }
                 }
             }
 
             if (filterConfig.author == undefined && filterConfig.tags == undefined && filterConfig.createdAt != undefined) {
-                for (var i = skip; i < articles.length && i < top + skip; i++) {
+                for (let i = skip; i < articles.length && i < top + skip; i++) {
                     if (filterConfig.createdAt.getTime() == articles[i].createdAt.getTime()) {
-                        newArticles[index] = articles[i];
-                        index++;
+                        newArticles.push(articles[i]);
                     }
                 }
             }
 
         }
-        /*newArticles.sort(function comparator(a, b) {
-            return b.createdAt - a.createdAt;
-        });*/
         return newArticles;
-    }
-
-    function findTag(tag, arrayOftags) {
-        for (var i = 0; i < arrayOftags.length; i++) {
-            if (tag == arrayOftags[i]) {
+    };
+    findTag = (tag, arrayOfTags) => {
+        for (let i = 0; i < arrayOfTags.length; i++) {
+            if (tag == arrayOfTags[i]) {
                 return true;
             }
         }
         return false;
-    }
-
-    function getArticle(id) {
-        var index = isArticle(id);
+    };
+    getArticle = (id) => { let index = isArticle(id);
         if (index == -1) {
             return null;
         } else {
             return articles[index];
         }
-    }
-
-    function validateArticle(article) {
+    };
+    validateArticle = (article) =>{
         if ((typeof(article.id) == "number")
             && (typeof(article.title) == "string" && article.title.length < 100 && article.title != null )
             && (typeof(article.summary) == "string" && article.summary.length < 200)
@@ -231,19 +114,17 @@ var articleModel = (function ()     {
         }
         else
             return false;
-    }
-
-    function addArticle(article) {
+    };
+    addArticle = (article) => {
         if (validateArticle(article)) {
-            articles[articles.length] = article;
+            articles.push(article);
             return true;
         }
         else
             return false;
-    }
-
-    function editArticle(id, article) {
-        var index = isArticle(id);
+    };
+    editArticle = (id, article) =>{
+        let index = isArticle(id);
         if (index == -1) {
             return false;
         }
@@ -269,32 +150,29 @@ var articleModel = (function ()     {
             articles[index].tags = article.tags;
         }
         return true;
-    }
-
-    function isArticle(id) {
-        var res = -1;
-        for (var i = 0; i < articles.length; i++) {
+    };
+    isArticle = (id) =>{
+        let res = -1;
+        for (let i = 0; i < articles.length; i++) {
             if (articles[i].id == id) {
                 return i;
             }
         }
         return res;
-    }
-
-    function removeArticle(id) {
-        var index = isArticle(id);
+    };
+    removeArticle = (id) => {
+        let index = isArticle(id);
         if (index == -1) {
             return false;
         } else {
             articles.splice(index, 1);
             return true;
         }
-    }
-
-    function isContainTag(tag) {
+    };
+    isContainTag = (tag) => {
         if (tag != undefined && typeof tag == "string") {
-            for (var i = 0; i < arrayOftags.length; i++) {
-                if (tag === arrayOftags[i]) {
+            for (let i = 0; i < arrayOfTags.length; i++) {
+                if (tag === arrayOfTags[i]) {
                     return true;
                 }
             }
@@ -302,31 +180,28 @@ var articleModel = (function ()     {
         } else {
             return false;
         }
-    }
-
-    function addToTagsArray(tag) {
-        var index = arrayOftags.length;
-        for (var i = 0; i < tag.length; i++) {
+    };
+    addToTagsArray = (tag) => {
+        let index = arrayOfTags.length;
+        for (let i = 0; i < tag.length; i++) {
             if (!isContainTag(tag[i]))
-                arrayOftags[index++] = tag[i];
+                arrayOfTags[index++] = tag[i];
         }
-    }
-
-    function addTagToArticle(id, tag) {
-        var index = isArticle(id);
+    };
+    addTagToArticle = (id,tag) =>{
+        let index = isArticle(id);
         if (index != -1 && tag != undefined && typeof tag == "string" && isContainTag(tag)) {
             articles[index].tags[tags.length] = tag;
             return true;
         } else {
             return false;
         }
-    }
-
-    function deleteTagInArticle(id, tag) {
-        var index = isArticle(id);
+    };
+    deleteTagInArticle = (id,tag) =>{
+        let index = isArticle(id);
         if (index != -1 && tag != undefined && typeof tag == "string" && isContainTag(tag)) {
-            var indexOfTags = -1;
-            for (var i = 0; i < articles[index].tags.length; i++) {
+            let indexOfTags = -1;
+            for (let i = 0; i < articles[index].tags.length; i++) {
                 if (articles[index].tags[i] == tag) {
                     indexOfTags = i;
                     break;
@@ -341,34 +216,22 @@ var articleModel = (function ()     {
         } else {
             return false;
         }
-    }
-
-    function getLenth() {
+    };
+    getLength = () =>{
         return articles.length;
-    }
-
-    function reWrite(obj) {
+    };
+    reWrite = (obj) => {
         articles = obj;
-    }
-
-    function stringToDate(obj) {
-        for(var i = 0 ; i < obj.length; i++){
+    };
+    stringToDate = (obj) => {
+        for (let i = 0; i < obj.length; i++) {
             obj[i].createdAt = new Date(obj[i].createdAt);
         }
-    }
-
-    function getArticleByTime(time) {
-        for (var i = 0; i < articles.length; i++) {
-            if (articles[i].createdAt == time) {
-            }
-            return articles[i];
-        }
-    }
-
-    function replaceArticles() {
+    };
+    replaceArticles = () =>{
         articles = JSON.parse(dbModel.getArrayOfArticals());
         articleModel.stringToDate(articles);
-    }
+    };
 
     return {
         getArticles: getArticles,
@@ -381,18 +244,17 @@ var articleModel = (function ()     {
         addToTagsArray: addToTagsArray,
         addTagToArticle: addTagToArticle,
         deleteTagInArticle: deleteTagInArticle,
-        getLenth: getLenth,
+        getLength: getLength,
         reWrite: reWrite,
         stringToDate: stringToDate,
-        getArticleByTime : getArticleByTime,
         replaceArticles: replaceArticles,
         idNews: idNews
     };
 }());
 
-var articleRenderer = (function () {
-    var ARTICLE_TEMPLATE;
-    var ARTICLE_LIST_NODE;
+let articleRenderer = (function () {
+    let ARTICLE_TEMPLATE;
+    let ARTICLE_LIST_NODE;
 
     function init() {
         ARTICLE_TEMPLATE = document.querySelector('#template-article-list-item');
@@ -400,7 +262,7 @@ var articleRenderer = (function () {
     }
 
     function insertArticlesInDOM(articles) {
-        var articlesNodes = renderArticles(articles);
+        let articlesNodes = renderArticles(articles);
         articlesNodes.forEach(function (node) {
             ARTICLE_LIST_NODE.appendChild(node);
         });
@@ -417,7 +279,7 @@ var articleRenderer = (function () {
     }
 
     function renderArticle(article) {
-        var template = ARTICLE_TEMPLATE;
+        let template = ARTICLE_TEMPLATE;
         template.content.querySelector('.article-list-item').dataset.id = article.id;
         template.content.querySelector('.article-list-item-title').textContent = article.title;
         template.content.querySelector('.article-list-item-summary').textContent = article.summary;
@@ -425,8 +287,8 @@ var articleRenderer = (function () {
         template.content.querySelector('.article-list-item-date').textContent = article.createdAt.toLocaleDateString("ru", options);
         template.content.querySelector('.article-list-title-img').setAttribute("src", article.img);
 
-        var newTags = [];
-        for (var i = 0; i < article.tags.length; i++) {
+        let newTags = [];
+        for (let i = 0; i < article.tags.length; i++) {
             newTags[i] = "#" + article.tags[i];
         }
 
@@ -439,7 +301,7 @@ var articleRenderer = (function () {
         return template.content.querySelector('.article-list-item').cloneNode(true);
     }
 
-    var options = {
+    let options = {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
@@ -455,33 +317,33 @@ var articleRenderer = (function () {
     };
 }());
 
-var countOfArticles = 2;
+let countOfArticles = 2;
 
 function startApp() {
     articleModel.replaceArticles();
-    var outArticles = articleModel.getArticles(0,articleModel.getLenth());
-    if(outArticles) {
+    let outArticles = articleModel.getArticles(0, articleModel.getLength());
+    if (outArticles) {
         articleModel.reWrite(outArticles);
     }
-    countOfArticles+=3;
-    if(countOfArticles >= articleModel.getLenth()) {
+    countOfArticles += 3;
+    if (countOfArticles >= articleModel.getLength()) {
         document.querySelector(".pagination-button").style.visibility = "hidden";
     }
     articleRenderer.init();
-    renderArticles(0,countOfArticles);
+    renderArticles(0, countOfArticles);
 }
 
 function showMore() {
-    if(countOfArticles < articleModel.getLenth()) {
+    if (countOfArticles < articleModel.getLength()) {
         startApp();
-        var username = localStorage.getItem("username");
+        let username = localStorage.getItem("username");
         if (username) {
-            var arr = document.getElementsByClassName("delete-item");
-            for (var i = 0; i < arr.length; i++) {
+            let arr = document.getElementsByClassName("delete-item");
+            for (let i = 0; i < arr.length; i++) {
                 arr[i].style.display = "block";
             }
-            var arr2 = document.getElementsByClassName(" edit-item");
-            for (var i = 0; i < arr.length; i++) {
+            let arr2 = document.getElementsByClassName(" edit-item");
+            for (let i = 0; i < arr.length; i++) {
                 arr2[i].style.display = "block";
             }
         }
@@ -489,14 +351,13 @@ function showMore() {
 }
 
 function sortByTime() {
-    renderArticles(0, articleModel.getLenth());
+    renderArticles(0, articleModel.getLength());
 }
 function sortByTagSport() {
     articleRenderer.removeArticlesFromDom();
-    var NewArticles = articleModel.getArticles(0,10,{tags: ["sport"]});
+    let NewArticles = articleModel.getArticles(0, 10, {tags: ["sport"]});
     articleRenderer.insertArticlesInDOM(NewArticles);
-    if (getSize(NewArticles) == 0)
-    {
+    if (getSize(NewArticles) == 0) {
         alert("Новости не найдены!");
         document.querySelector(".pagination-button").style.visibility = "hidden";
         document.querySelector(".main-page").style.display = "inline-block";
@@ -510,10 +371,9 @@ function sortByTagSport() {
 }
 function sortByTagPolitics() {
     articleRenderer.removeArticlesFromDom();
-    var NewArticles = articleModel.getArticles(0, 10, {tags: ["politics"]});
+    let NewArticles = articleModel.getArticles(0, 10, {tags: ["politics"]});
     articleRenderer.insertArticlesInDOM(NewArticles);
-    if (getSize(NewArticles) == 0)
-    {
+    if (getSize(NewArticles) == 0) {
         alert("Новости не найдены!");
         document.querySelector(".pagination-button").style.visibility = "hidden";
         document.querySelector(".main-page").style.display = "inline-block";
@@ -525,12 +385,11 @@ function sortByTagPolitics() {
         return 0;
     }
 }
-function sortByAfiha(){
+function sortByAfiha() {
     articleRenderer.removeArticlesFromDom();
-    var NewArticles = articleModel.getArticles(0,10,{tags: ["fashion"]});
+    let NewArticles = articleModel.getArticles(0, 10, {tags: ["fashion"]});
     articleRenderer.insertArticlesInDOM(NewArticles);
-    if (getSize(NewArticles) == 0)
-    {
+    if (getSize(NewArticles) == 0) {
         alert("Новости не найдены!");
         document.querySelector(".pagination-button").style.visibility = "hidden";
         document.querySelector(".main-page").style.display = "inline-block";
@@ -542,12 +401,11 @@ function sortByAfiha(){
         return 0;
     }
 }
-function sortByHiTech(){
+function sortByHiTech() {
     articleRenderer.removeArticlesFromDom();
-    var NewArticles = articleModel.getArticles(0,10,{tags: ["hi-tech"]});
+    let NewArticles = articleModel.getArticles(0, 10, {tags: ["hi-tech"]});
     articleRenderer.insertArticlesInDOM(NewArticles);
-    if (getSize(NewArticles) == 0)
-    {
+    if (getSize(NewArticles) == 0) {
         alert("Новости не найдены!");
         document.querySelector(".pagination-button").style.visibility = "hidden";
         document.querySelector(".main-page").style.display = "inline-block";
@@ -559,12 +417,11 @@ function sortByHiTech(){
         return 0;
     }
 }
-function sortByBOOM(){
+function sortByBOOM() {
     articleRenderer.removeArticlesFromDom();
-    var NewArticles = articleModel.getArticles(0,10,{tags: ["BOOM"]});
+    let NewArticles = articleModel.getArticles(0, 10, {tags: ["BOOM"]});
     articleRenderer.insertArticlesInDOM(NewArticles);
-    if (getSize(NewArticles) == 0)
-    {
+    if (getSize(NewArticles) == 0) {
         alert("Новости не найдены!");
         document.querySelector(".pagination-button").style.visibility = "hidden";
         document.querySelector(".main-page").style.display = "inline-block";
@@ -578,10 +435,9 @@ function sortByBOOM(){
 }
 function sortByCars() {
     articleRenderer.removeArticlesFromDom();
-    var NewArticles = articleModel.getArticles(0,10,{tags: ["cars"]});
+    let NewArticles = articleModel.getArticles(0, 10, {tags: ["cars"]});
     articleRenderer.insertArticlesInDOM(NewArticles);
-    if (getSize(NewArticles) == 0)
-    {
+    if (getSize(NewArticles) == 0) {
         alert("Новости не найдены!");
         document.querySelector(".pagination-button").style.visibility = "hidden";
         document.querySelector(".main-page").style.display = "inline-block";
@@ -596,14 +452,14 @@ function sortByCars() {
 
 function renderArticles(skip, top, filter) {
     articleRenderer.removeArticlesFromDom();
-    var NewArticles = articleModel.getArticles(skip, top, filter);
+    let NewArticles = articleModel.getArticles(skip, top, filter);
     articleRenderer.insertArticlesInDOM(NewArticles);
 }
 
 document.addEventListener('DOMContentLoaded', startApp);
 
 function getSize(mas) {
-    var temp = [];
+    let temp = [];
     temp = mas;
     return temp.length;
 }
