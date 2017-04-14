@@ -26,6 +26,7 @@ let options1 = {
 
 function lookItemFromBar(el) {
     let article = articleModel.getArticle(el.id);
+    document.getElementById('idItem').setAttribute('idItem', article.id) ;
     document.querySelector('.main-page').style.display = 'none';
     document.querySelector('.full-news').style.display = 'block';
     document.querySelector('.article-item-title').textContent = article.title;
