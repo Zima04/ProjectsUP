@@ -15,7 +15,7 @@
     <script type="text/javascript" src="leftBarNews.js"></script>
     <script type="text/javascript" src="search.js"></script>
     <script type="text/javascript" src ="MessagesFromService.js"></script>
-
+    <script type="text/javascript" src ="filter.js"></script>
 </head>
 <body>
 
@@ -99,6 +99,20 @@
                     </li>
                 </ul>
             </nav>
+            <div class="filter-page" id="filter-id">
+                <div class="form">
+                    <h2 align="center">Фильтр</h2>
+                    <form class="filter-form">
+                        <p>Автор:<br>
+                            <input type="text" id="author"/></p>
+                        <p>Дата:<br>
+                            <input type="text" id="data" placeholder="ДД-ММ-ГГГГ"/></p>
+                        <p>Теги:<br>
+                            <input type="text" id="tag"/></p>
+                        <button type="button" onclick="startFilter();">применить</button>
+                    </form>
+                </div>
+            </div>
         </aside>
         <aside class="newsbox">
         </aside>

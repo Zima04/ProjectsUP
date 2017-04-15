@@ -78,7 +78,7 @@ let articleModel = (function () {
 
             if (filterConfig.author == undefined && filterConfig.tags == undefined && filterConfig.createdAt != undefined) {
                 for (let i = skip; i < articles.length && i < top + skip; i++) {
-                    if (filterConfig.createdAt.getTime() == articles[i].createdAt.getTime()) {
+                    if (filterConfig.createdAt.getFullYear() == articles[i].createdAt.getFullYear()&&filterConfig.createdAt.getDate() == articles[i].createdAt.getDate()&&filterConfig.createdAt.getMonth() == articles[i].createdAt.getMonth()){
                         newArticles.push(articles[i]);
                     }
                 }
@@ -330,7 +330,7 @@ function startApp() {
         document.querySelector(".pagination-button").style.visibility = "hidden";
     }
     articleRenderer.init();
-    renderArticles(0, countOfArticles);
+    renderArticles(0, countOfArticles, filter);
 }
 
 function showMore() {
