@@ -358,12 +358,22 @@ function showMore() {
 
 function sortByTime() {
     renderArticles(0, articleModel.getLength());
+    document.querySelector(".main-page").style.display = "inline-block";
+    document.querySelector(".edit-news").style.display = "none";
+    document.querySelector(".full-news").style.display = "none";
+    document.querySelector(".block-add-news").style.display = "none";
+    document.querySelector(".in").style.display = "none";
 }
 function sortByTagSport() {
     articleRenderer.removeArticlesFromDom();
     let NewArticles = articleModel.getArticles(0, 10, {tags: ["sport"]});
     articleRenderer.insertArticlesInDOM(NewArticles);
     document.querySelector(".pagination-button").style.visibility = "hidden";
+    document.querySelector(".main-page").style.display = "inline-block";
+    document.querySelector(".edit-news").style.display = "none";
+    document.querySelector(".full-news").style.display = "none";
+    document.querySelector(".block-add-news").style.display = "none";
+    document.querySelector(".in").style.display = "none";
     if (getSize(NewArticles) == 0) {
         alert("Новости не найдены!");
         document.querySelector(".main-page").style.display = "inline-block";
@@ -380,6 +390,11 @@ function sortByTagPolitics() {
     let NewArticles = articleModel.getArticles(0, 10, {tags: ["politics"]});
     articleRenderer.insertArticlesInDOM(NewArticles);
     document.querySelector(".pagination-button").style.visibility = "hidden";
+    document.querySelector(".main-page").style.display = "inline-block";
+    document.querySelector(".edit-news").style.display = "none";
+    document.querySelector(".full-news").style.display = "none";
+    document.querySelector(".block-add-news").style.display = "none";
+    document.querySelector(".in").style.display = "none";
     if (getSize(NewArticles) == 0) {
         alert("Новости не найдены!");
         document.querySelector(".main-page").style.display = "inline-block";
@@ -396,6 +411,11 @@ function sortByAfiha() {
     let NewArticles = articleModel.getArticles(0, 10, {tags: ["fashion"]});
     articleRenderer.insertArticlesInDOM(NewArticles);
     document.querySelector(".pagination-button").style.visibility = "hidden";
+    document.querySelector(".main-page").style.display = "inline-block";
+    document.querySelector(".edit-news").style.display = "none";
+    document.querySelector(".full-news").style.display = "none";
+    document.querySelector(".block-add-news").style.display = "none";
+    document.querySelector(".in").style.display = "none";
     if (getSize(NewArticles) == 0) {
         alert("Новости не найдены!");
         document.querySelector(".main-page").style.display = "inline-block";
@@ -412,6 +432,11 @@ function sortByHiTech() {
     let NewArticles = articleModel.getArticles(0, 10, {tags: ["hi-tech"]});
     articleRenderer.insertArticlesInDOM(NewArticles);
     document.querySelector(".pagination-button").style.visibility = "hidden";
+    document.querySelector(".main-page").style.display = "inline-block";
+    document.querySelector(".edit-news").style.display = "none";
+    document.querySelector(".full-news").style.display = "none";
+    document.querySelector(".block-add-news").style.display = "none";
+    document.querySelector(".in").style.display = "none";
     if (getSize(NewArticles) == 0) {
         alert("Новости не найдены!");
         document.querySelector(".main-page").style.display = "inline-block";
@@ -428,6 +453,11 @@ function sortByBOOM() {
     let NewArticles = articleModel.getArticles(0, 10, {tags: ["BOOM"]});
     articleRenderer.insertArticlesInDOM(NewArticles);
     document.querySelector(".pagination-button").style.visibility = "hidden";
+    document.querySelector(".main-page").style.display = "inline-block";
+    document.querySelector(".edit-news").style.display = "none";
+    document.querySelector(".full-news").style.display = "none";
+    document.querySelector(".block-add-news").style.display = "none";
+    document.querySelector(".in").style.display = "none";
     if (getSize(NewArticles) == 0) {
         alert("Новости не найдены!");
         document.querySelector(".main-page").style.display = "inline-block";
@@ -444,6 +474,11 @@ function sortByCars() {
     let NewArticles = articleModel.getArticles(0, 10, {tags: ["cars"]});
     articleRenderer.insertArticlesInDOM(NewArticles);
     document.querySelector(".pagination-button").style.visibility = "hidden";
+    document.querySelector(".main-page").style.display = "inline-block";
+    document.querySelector(".edit-news").style.display = "none";
+    document.querySelector(".full-news").style.display = "none";
+    document.querySelector(".block-add-news").style.display = "none";
+    document.querySelector(".in").style.display = "none";
     if (getSize(NewArticles) == 0) {
         alert("Новости не найдены!");
         document.querySelector(".main-page").style.display = "inline-block";
