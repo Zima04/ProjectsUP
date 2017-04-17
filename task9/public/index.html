@@ -27,7 +27,7 @@
                 <img class="header-icon-man" src="images/logo-in.png"alt="Input logo">
                 <button onclick="showLodInPage();" id="username"> Войти</button>
                 <div class="dropdown-block">
-                    <button type="submit" class="dropdown-button"><img src="images/down-funk.png"></button>
+                    <button type="submit" class="dropdown-button"><img class="dropdown-button-logo" src="images/down-funk.png"></button>
                     <div class="dropdown-categories">
                         <button onclick="showAddPage();">Добавить</button>
                         <button onclick="authorize();">Выйти</button>
@@ -50,7 +50,6 @@
             </ul>
         </nav>
     </div>
-
     <div class="main-page">
         <div class="slidebox">
             <div class="slidebox-item" id="slideItem1">
@@ -67,55 +66,55 @@
             </div>
         </div>
         <div class="inline">
-        <aside class="mini-menu">
-            <nav>
-                <ul class="aside-menu">
-                    <a href="index.html"><img class="mini-logo" src="images/logo.png" width="165" height="50"></a>
-                    <p>Последние новости</p>
-                    <li class="Item0"  id="get-id0">
-                        <span></span>
-                        <span class="bar-tags"></span><br>
-                        <a onclick="lookItemFromBar(articleModel.getArticle(document.getElementById('get-id0').getAttribute('get-id0')))"></a>
-                    </li>
-                    <li class="Item1" id="get-id1">
-                        <span></span>
-                        <span class="bar-tags"></span><br>
-                        <a onclick="lookItemFromBar(articleModel.getArticle(document.getElementById('get-id1').getAttribute('get-id1')))"></a>
-                    </li>
-                    <li class="Item2" id="get-id2">
-                        <span ></span>
-                        <span class="bar-tags"></span><br>
-                        <a onclick="lookItemFromBar(articleModel.getArticle(document.getElementById('get-id2').getAttribute('get-id2')))"></a>
-                    </li>
-                    <li class="Item3" id="get-id3">
-                        <span ></span>
-                        <span class="bar-tags"></span><br>
-                        <a onclick="lookItemFromBar(articleModel.getArticle(document.getElementById('get-id3').getAttribute('get-id3')))"></a>
-                    </li>
-                    <li class="Item4" id="get-id4">
-                        <span ></span>
-                        <span class="bar-tags"></span><br>
-                        <a onclick="lookItemFromBar(articleModel.getArticle(document.getElementById('get-id4').getAttribute('get-id4')))"></a>
-                    </li>
-                </ul>
-            </nav>
-            <div class="filter-page" id="filter-id">
-                <div class="form">
-                    <h2 align="center">Фильтр</h2>
-                    <form class="filter-form">
-                        <p>Автор:<br>
-                            <input type="text" id="author"/></p>
-                        <p>Дата:<br>
-                            <input type="text" id="data" placeholder="ДД-ММ-ГГГГ"/></p>
-                        <p>Теги:<br>
-                            <input type="text" id="tag"/></p>
-                        <button type="button" onclick="startFilter();">применить</button>
-                    </form>
+            <aside class="mini-menu">
+                <nav>
+                    <ul class="aside-menu">
+                        <a href="index.html"><img class="mini-logo" src="images/logo.png" width="165" height="50"></a>
+                        <p>Последние новости</p>
+                        <li class="Item0"  id="get-id0">
+                            <span></span>
+                            <span class="bar-tags"></span><br>
+                            <a onclick="lookItemFromBar(articleModel.getArticle(document.getElementById('get-id0').getAttribute('get-id0')))"></a>
+                        </li>
+                        <li class="Item1" id="get-id1">
+                            <span></span>
+                            <span class="bar-tags"></span><br>
+                            <a onclick="lookItemFromBar(articleModel.getArticle(document.getElementById('get-id1').getAttribute('get-id1')))"></a>
+                        </li>
+                        <li class="Item2" id="get-id2">
+                            <span ></span>
+                            <span class="bar-tags"></span><br>
+                            <a onclick="lookItemFromBar(articleModel.getArticle(document.getElementById('get-id2').getAttribute('get-id2')))"></a>
+                        </li>
+                        <li class="Item3" id="get-id3">
+                            <span ></span>
+                            <span class="bar-tags"></span><br>
+                            <a onclick="lookItemFromBar(articleModel.getArticle(document.getElementById('get-id3').getAttribute('get-id3')))"></a>
+                        </li>
+                        <li class="Item4" id="get-id4">
+                            <span ></span>
+                            <span class="bar-tags"></span><br>
+                            <a onclick="lookItemFromBar(articleModel.getArticle(document.getElementById('get-id4').getAttribute('get-id4')))"></a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="filter-page" id="filter-id">
+                    <div class="form">
+                        <h2 align="center">Фильтр</h2>
+                        <form class="filter-form">
+                            <p>Автор:<br>
+                                <input type="text" id="author"/></p>
+                            <p>Дата:<br>
+                                <input type="text" id="data" placeholder="ДД-ММ-ГГГГ"/></p>
+                            <p>Теги:<br>
+                                <input type="text" id="tag"/></p>
+                            <button type="button" onclick="startFilter();">применить</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </aside>
-        <aside class="newsbox">
-        </aside>
+            </aside>
+            <aside class="newsbox">
+            </aside>
         </div>
         <button type="submit" onclick="showMore()" class="pagination-button">Показать еще</button>
     </div>
@@ -174,7 +173,7 @@
             <p class="edit-word"> Редактировать новость </p>
             <textarea class="name-item" name="head" id="get-name"></textarea>
             <textarea class="message" name="message" id="get-message" rows="15" cols="46" ></textarea>
-            <textarea class="img" name="image" placeholder="Сcылка на картинку "></textarea>
+            <textarea class="img" name="image" id="get-img"></textarea>
             <textarea class="tags" name="tags" id="get-tags" ></textarea>
             <a onclick="changeFields(document.blockChangeItem.getAttribute('get-id'));" class="edit-item-page">Редактировать новость</a>
         </form>
@@ -184,17 +183,18 @@
         <div class="footer-box">
             <div class="footblock">
                 <img class="footer-logo" src="images/logo.png">
-                <p class="my-name"> Владислав Зинчук ФПМИ 8 группа</p>
             </div>
             <div class="footblock2">
                 <img class="footer-icons" src="images/social-small.png">
-                <p>Мы в социальных сетях</p>
-                <img class="footer-google" src="images/plus.png" height="50px" width="50px">
-                <p class="adress-google">zima04zima@gmail.com</p>
-                <p class="version">Версия 1.0</p>
+                <div class="adress-google-block">
+                    <img class="footer-google" src="images/plus.png">
+                    <p class="adress-google">zima04zima@gmail.com</p>
+                    <p class="version">Версия 1.0</p>
+                </div>
             </div>
             <div class="footblock3">
-                <img class="footer-browser" src="images/browser.png" height="80px" width="80px">
+                <img class="footer-browser" src="images/browser.png">
+                <p class="my-name"> Владислав Зинчук ФПМИ <br/>8 группа</p>
             </div>
         </div>
     </footer>

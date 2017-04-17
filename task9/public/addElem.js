@@ -1,3 +1,4 @@
+"use strict";
 function showAddPage() {
     document.querySelector(".main-page").style.display = "none";
     document.querySelector(".edit-news").style.display = "none";
@@ -31,15 +32,18 @@ function addItem() {
         content: message,
         img: image,
         tags : newTags
-    });
-    alert("Новость добавлена в ленту!");
-    document.querySelector(".main-page").style.display = "inline-block";
-    document.querySelector(".edit-news").style.display = "none";
-    document.querySelector(".full-news").style.display = "none";
-    document.querySelector(".block-add-news").style.display = "none";
-    document.querySelector(".in").style.display = "none";
-    startApp();
-    addUserUI();
+    }).then(
+        ready => {
+            alert("Новость добавлена в ленту!");
+            document.querySelector(".main-page").style.display = "inline-block";
+            document.querySelector(".edit-news").style.display = "none";
+            document.querySelector(".full-news").style.display = "none";
+            document.querySelector(".block-add-news").style.display = "none";
+            document.querySelector(".in").style.display = "none";
+            startApp();
+            addUserUI();
+        }
+    );
 }
 
 

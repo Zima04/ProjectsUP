@@ -1,23 +1,24 @@
+"use strict";
 function getInformation(){
-    let tem = JSON.parse(dbModel.getArrayOfArticals());
-    if(tem) {
-        articleModel.stringToDate(tem);
-        articleModel.reWrite(tem);
-    }
-    let newArticles = articleModel.getArticles(0,5);
-    let adress = "Item";
-    let stringId ="get-id";
-    for(let j = 0 ; j < 5; j++) {
-        adress = "Item" + j;
-        document.getElementById(stringId+j).setAttribute(stringId + j,newArticles[j].id);
-        document.getElementsByClassName(adress)[0].childNodes[1].textContent = newArticles[j].createdAt.toLocaleDateString("ru", options1);
-        let newTags = "";
-        for (let i = 0; i < newArticles[j].tags.length; i++) {
-            newTags += "#" + newArticles[j].tags[i] + " ";
+    articleModel.replaceArticles().then(
+        ready => {
+            let newArticles = articleModel.getArticles(0,5);
+            let adress = "Item";
+            let stringId ="get-id";
+            for(let j = 0 ; j < 5; j++) {
+                adress = "Item" + j;
+                document.getElementById(stringId+j).setAttribute(stringId + j,newArticles[j].id);
+                document.getElementsByClassName(adress)[0].childNodes[1].textContent = newArticles[j].createdAt.toLocaleDateString("ru", options1);
+                let newTags = "";
+                for (let i = 0; i < newArticles[j].tags.length; i++) {
+                    newTags += "#" + newArticles[j].tags[i] + " ";
+                }
+                document.getElementsByClassName(adress)[0].childNodes[3].textContent = newTags;
+                document.getElementsByClassName(adress)[0].childNodes[6].textContent = newArticles[j].title;
+            }
         }
-        document.getElementsByClassName(adress)[0].childNodes[3].textContent = newTags;
-        document.getElementsByClassName(adress)[0].childNodes[6].textContent = newArticles[j].title;
-    }
+    );
+
 }
 let options1 = {
     hour: 'numeric',

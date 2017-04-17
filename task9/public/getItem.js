@@ -1,3 +1,4 @@
+"use strict";
 function lookItem(el) {
     let article = articleModel.getArticle(el.dataset.id);
     document.getElementById('idItem').setAttribute('idItem', article.id) ;

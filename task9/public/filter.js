@@ -44,9 +44,12 @@ function startFilter() {
         if(NewArticles != 0) {
             articleRenderer.removeArticlesFromDom();
             articleRenderer.insertArticlesInDOM(NewArticles);
+            document.querySelector(".pagination-button").style.visibility = "hidden";
         }
+        else
+            alert("Новости не найдены!");
     } else {
-        alert("Новости не найдены!");
+        alert("Заполните поля для фильтра!");
         document.querySelector(".main-page").style.display = "inline-block";
         document.querySelector(".edit-news").style.display = "none";
         document.querySelector(".full-news").style.display = "none";

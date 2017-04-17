@@ -1,3 +1,4 @@
+"use strict";
 function search() {
     let string = document.getElementById("searchString").value;
     let articles = articleModel.getArticles(0,articleModel.getLength());
