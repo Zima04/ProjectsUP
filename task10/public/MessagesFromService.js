@@ -18,13 +18,6 @@ let dbModel = (function () {
         });
     }
 
-    /* deleteArtical("12312341").then(
-     resolve => {
-     console.log(resolve)
-     },
-     reject => console.log(reject)
-     );*/
-
     function addArtical(article) {
 
         return new Promise(function (resolve, reject) {

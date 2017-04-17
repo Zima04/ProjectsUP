@@ -7,11 +7,12 @@ function getItem(elem){
     document.blockChangeItem.setAttribute('get-id', article.id) ;
     document.getElementById('get-name').value = article.title;
     document.getElementById('get-message').value = article.summary;
-   // document.getElementById('get-picture').setAttribute("src", article.img);
+    document.getElementById('get-img').value = article.img;
     let newTags = "";
-    for (let i = 0; i < article.tags.length; i++) {
+    for (let i = 0; i < article.tags.length-1; i++) {
         newTags += article.tags[i] + " ";
     }
+    newTags += article.tags[article.tags.length - 1];
     document.getElementById('get-tags').value = newTags;
 }
 
@@ -23,10 +24,12 @@ function getItemFromFull(elem){
     document.blockChangeItem.setAttribute('get-id', article.id) ;
     document.getElementById('get-name').value = article.title;
     document.getElementById('get-message').value = article.summary;
+    document.getElementById('get-img').value = article.img;
     let newTags = "";
-    for (let i = 0; i < article.tags.length; i++) {
-        newTags += "#" + article.tags[i] + " ";
+    for (let i = 0; i < article.tags.length-1; i++) {
+        newTags += article.tags[i] + " ";
     }
+    newTags += article.tags[article.tags.length - 1];
     document.getElementById('get-tags').value = newTags;
 }
 
