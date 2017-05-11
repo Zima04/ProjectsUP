@@ -1,12 +1,13 @@
-"use strict";
+'use strict';
+
 let filter = null;
-let error = "Введите данные";
+let error = 'Введите данные';
 
 function getFilter() {
     let flag = false;
-    let name = document.getElementById("author").value;
-    let tags = document.getElementById("tag").value;
-    let createdAt = document.getElementById("data").value;
+    const name = document.getElementById('author').value;
+    let tags = document.getElementById('tag').value;
+    const createdAt = document.getElementById('data').value;
     filter = {};
     if (name) {
         filter.author = name;
@@ -18,12 +19,12 @@ function getFilter() {
         flag = true;
     }
     if (createdAt) {
-        let date = isValidDate(createdAt);
+        const date = isValidDate(createdAt);
         if (date) {
             filter.createdAt = date;
             flag = true;
         } else {
-            error = "неверный формат даты";
+            error = 'неверный формат даты';
             flag = false;
         }
     }
@@ -31,30 +32,39 @@ function getFilter() {
 }
 
 function isValidDate(val) {
-    let val_r = val.split(/-/);
-    val_r[1] -= 1;
-    let curDate = new Date(val_r[2], val_r[1], val_r[0]);
-    if (!(curDate.getFullYear() == val_r[2] && curDate.getMonth() == val_r[1] && curDate.getDate() == val_r[0])) return false;
+    const valR = val.split(/-/);
+    valR[1] -= 1;
+    const curDate = new Date(valR[2], valR[1], valR[0]);
+    if (!(curDate.getFullYear() === valR[2])) {
+        return false;
+    }
+    if (!(curDate.getMonth() === valR[1])) {
+        return false;
+    }
+    if (!(curDate.getDate() === valR[0])) {
+        return false;
+    }
+
     return curDate;
 }
 
 function startFilter() {
     if (getFilter()) {
-        let NewArticles = articleModel.getArticles(0,articleModel.getLength(), filter);
-        if(NewArticles != 0) {
+        const NewArticles = articleModel.getArticles(0, articleModel.getLength(), filter);
+        if (NewArticles !== 0) {
             articleRenderer.removeArticlesFromDom();
             articleRenderer.insertArticlesInDOM(NewArticles);
-            document.querySelector(".pagination-button").style.visibility = "hidden";
+            document.querySelector('.pagination-button').style.visibility = 'hidden';
+        } else {
+            alert('Новости не найдены!');
         }
-        else
-            alert("Новости не найдены!");
     } else {
-        alert("Заполните поля для фильтра!");
-        document.querySelector(".main-page").style.display = "inline-block";
-        document.querySelector(".edit-news").style.display = "none";
-        document.querySelector(".full-news").style.display = "none";
-        document.querySelector(".block-add-news").style.display = "none";
-        document.querySelector(".in").style.display = "none";
+        alert('Заполните поля для фильтра!');
+        document.querySelector('.main-page').style.display = 'inline-block';
+        document.querySelector('.edit-news').style.display = 'none';
+        document.querySelector('.full-news').style.display = 'none';
+        document.querySelector('.block-add-news').style.display = 'none';
+        document.querySelector('.in').style.display = 'none';
         addUserUI();
     }
 }
