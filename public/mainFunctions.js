@@ -99,8 +99,8 @@ const articleModel = (function () {
             return articles[index];
         }
     };
-    const validateArticle = article => ((typeof (article.id) === 'number')
-    && (typeof (article.title) === 'string' && article.title.length < 100 && article.title != null)
+    const validateArticle = article => (
+    (typeof (article.title) === 'string' && article.title.length < 100 && article.title != null)
     && (typeof (article.summary) === 'string' && article.summary.length < 200)
     && (typeof (article.createdAt) === 'object')
     && (typeof (article.author) === 'string' && article.author != null)
@@ -143,7 +143,7 @@ const articleModel = (function () {
     const isArticle = (id) => {
         const res = -1;
         for (let i = 0; i < articles.length; i += 1) {
-            if (articles[i].id === id) {
+            if (articles[i]._id === id) {
                 return i;
             }
         }
@@ -263,7 +263,7 @@ const articleRenderer = (function () {
 
     function renderArticle(article) {
         const template = ARTICLE_TEMPLATE;
-        template.content.querySelector('.article-list-item').dataset.id = article.id;
+        template.content.querySelector('.article-list-item').dataset.id = article._id;
         template.content.querySelector('.article-list-item-title').textContent = article.title;
         template.content.querySelector('.article-list-item-summary').textContent = article.summary.slice(0, 200);
         if (article.summary.length > 200) {

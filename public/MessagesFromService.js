@@ -7,7 +7,7 @@ const dbModel = (function () {
             req.open('DELETE', `/articles${id}`);
             req.onload = function () {
                 if (req.status === 200) {
-                    resolve(this.response);
+                    resolve(req.response);
                 }
             };
             req.onerror = () => reject(new Error('deleteArtical crashed.'));
@@ -22,7 +22,7 @@ const dbModel = (function () {
             req.setRequestHeader('content-type', 'application/json');
             req.onload = function () {
                 if (req.status === 200) {
-                    resolve(this.response);
+                    resolve(req.response);
                 }
             };
             req.onerror = () => reject(new Error('addArtical crashed.'));
@@ -37,7 +37,7 @@ const dbModel = (function () {
             req.setRequestHeader('content-type', 'application/json');
             req.onload = function () {
                 if (req.status === 200) {
-                    resolve(this.response);
+                    resolve(req.response);
                 }
             };
             req.onerror = () => reject(new Error('editArtical crashed.'));

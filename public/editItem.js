@@ -5,7 +5,7 @@ function getItem(elem) {
     document.querySelector('.full-news').style.display = 'none';
     document.querySelector('.edit-news').style.display = 'inline-block';
     const article = articleModel.getArticle(elem.dataset.id);
-    document.blockChangeItem.setAttribute('get-id', article.id);
+    document.blockChangeItem.setAttribute('get-id', article._id);
     document.getElementById('get-name').value = article.title;
     document.getElementById('get-message').value = article.summary;
     document.getElementById('get-img').value = article.img;
@@ -21,8 +21,8 @@ function getItemFromFull(elem) {
     document.querySelector('.main-page').style.display = 'none';
     document.querySelector('.full-news').style.display = 'none';
     document.querySelector('.edit-news').style.display = 'inline-block';
-    const article = articleModel.getArticle(elem.id);
-    document.blockChangeItem.setAttribute('get-id', article.id);
+    const article = articleModel.getArticle(elem._id);
+    document.blockChangeItem.setAttribute('get-id', article._id);
     document.getElementById('get-name').value = article.title;
     document.getElementById('get-message').value = article.summary;
     document.getElementById('get-img').value = article.img;

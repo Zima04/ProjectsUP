@@ -2,7 +2,7 @@
 
 function lookItem(el) {
     const article = articleModel.getArticle(el.dataset.id);
-    document.getElementById('idItem').setAttribute('idItem', article.id);
+    document.getElementById('idItem').setAttribute('idItem', article._id);
     document.querySelector('.main-page').style.display = 'none';
     document.querySelector('.full-news').style.display = 'block';
     document.querySelector('.article-item-title').textContent = article.title;

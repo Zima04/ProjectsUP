@@ -13,7 +13,7 @@ function getNameImage(num) {
 
 function getIdItem(num) {
     const items = articleModel.getArticles(0, 6);
-    return items[num].id;
+    return items[num]._id;
 }
 
 function changeSlide() {
