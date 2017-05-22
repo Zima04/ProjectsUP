@@ -10,7 +10,7 @@ const dbModel = (function () {
                     resolve(req.response);
                 }
             };
-            req.onerror = () => reject(new Error('deleteArtical crashed.'));
+            req.onerror = () => reject(new Error('deleteArticle crashed.'));
             req.send();
         });
     }
@@ -25,7 +25,7 @@ const dbModel = (function () {
                     resolve(req.response);
                 }
             };
-            req.onerror = () => reject(new Error('addArtical crashed.'));
+            req.onerror = () => reject(new Error('addArticle crashed.'));
             req.send(JSON.stringify(article));
         });
     }
@@ -40,15 +40,16 @@ const dbModel = (function () {
                     resolve(req.response);
                 }
             };
-            req.onerror = () => reject(new Error('editArtical crashed.'));
+            req.onerror = () => reject(new Error('editArticle crashed.'));
             req.send(JSON.stringify(article));
         });
     }
 
-    function getArrayOfArticals() {
+    function getArrayOfArticals(skip, top, filter) {
         return new Promise((resolve, reject) => {
             const req = new XMLHttpRequest();
-            req.open('GET', '/articles');
+            req.open('POST', '/filtered_articles', true);
+            req.setRequestHeader('Content-Type', 'application/json');
             req.onload = function () {
                 if (req.status === 200) {
                     resolve(JSON.parse(req.responseText, (key, value) => {
@@ -59,8 +60,8 @@ const dbModel = (function () {
                     }));
                 }
             };
-            req.onerror = () => reject(new Error('getArrayOfAeticals crashed.'));
-            req.send();
+            req.onerror = () => reject(new Error('getArrayOfArticles crashed.'));
+            req.send(JSON.stringify({skip, top, filter}));
         });
     }
 

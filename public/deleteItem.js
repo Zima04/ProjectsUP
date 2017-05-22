@@ -8,7 +8,7 @@ function deleteItem(el) {
             document.querySelector('.edit-news').style.display = 'none';
             alert('Новость удалена!');
             startApp();
-            addUserUI();
+            //addUserUI();
         });
 }
 

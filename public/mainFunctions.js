@@ -106,40 +106,6 @@ const articleModel = (function () {
     && (typeof (article.author) === 'string' && article.author != null)
     && (typeof (article.content) === 'string' && article.content != null)
     && (article.tags && article.tags.length > 0));
-    const addArticle = (article) => {
-        if (validateArticle(article)) {
-            articles.push(article);
-            return true;
-        }
-        return false;
-    };
-    const editArticle = (id, article) => {
-        const index = isArticle(id);
-        if (index === -1) {
-            return false;
-        }
-        if (article.id && article.author && article.createdAt) {
-            return false;
-        }
-        if (article.title && typeof article.title === 'string' && article.title.length > 0 &&
-            article.title.length <= 100) {
-            articles[index].title = article.title;
-        }
-        if (article.summary && typeof article.summary === 'string' && article.summary.length > 0 &&
-            article.summary.length <= 200) {
-            articles[index].summary = article.summary;
-        }
-        if (article.content && typeof article.content === 'string' && article.content.length > 0) {
-            articles[index].content = article.content;
-        }
-        if (article.img && typeof article.img === 'string' && article.img.length > 0) {
-            articles[index].img = article.img;
-        }
-        if (article.tags && article.tags.length >= 1 && article.tags.length <= 5) {
-            articles[index].tags = article.tags;
-        }
-        return true;
-    };
     const isArticle = (id) => {
         const res = -1;
         for (let i = 0; i < articles.length; i += 1) {
@@ -148,64 +114,6 @@ const articleModel = (function () {
             }
         }
         return res;
-    };
-    const removeArticle = (id) => {
-        const index = isArticle(id);
-        if (index === -1) {
-            return false;
-        } else {
-            articles.splice(index, 1);
-            return true;
-        }
-    };
-    const isContainTag = (tag) => {
-        if (tag && typeof tag === 'string') {
-            for (let i = 0; i < arrayOfTags.length; i += 1) {
-                if (tag === arrayOfTags[i]) {
-                    return true;
-                }
-            }
-            return false;
-        } else {
-            return false;
-        }
-    };
-    const addToTagsArray = (tag) => {
-        let index = arrayOfTags.length;
-        for (let i = 0; i < tag.length; i += 1) {
-            if (!isContainTag(tag[i])) {
-                arrayOfTags[index += 1] = tag[i];
-            }
-        }
-    };
-    const addTagToArticle = (id, tag) => {
-        const index = isArticle(id);
-        if (index !== -1 && tag && typeof tag === 'string' && isContainTag(tag)) {
-            articles[index].tags[tags.length] = tag;
-            return true;
-        } else {
-            return false;
-        }
-    };
-    const deleteTagInArticle = (id, tag) => {
-        const index = isArticle(id);
-        if (index !== -1 && tag && typeof tag === 'string' && isContainTag(tag)) {
-            let indexOfTags = -1;
-            for (let i = 0; i < articles[index].tags.length; i += 1) {
-                if (articles[index].tags[i] === tag) {
-                    indexOfTags = i;
-                    break;
-                }
-            }
-            if (indexOfTags !== -1) {
-                articles[index].tags.splice(indexOfTags, 1);
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
     };
     const getLength = () => articles.length;
     const reWrite = (obj) => {
@@ -223,14 +131,8 @@ const articleModel = (function () {
     return {
         getArticles,
         getArticle,
-        addArticle,
         validateArticle,
-        editArticle,
         isArticle,
-        removeArticle,
-        addToTagsArray,
-        addTagToArticle,
-        deleteTagInArticle,
         getLength,
         reWrite,
         replaceArticles,
@@ -317,8 +219,9 @@ function startApp() {
                 document.querySelector('.pagination-button').style.visibility = 'hidden';
             }
             articleRenderer.init();
-            renderArticles(0, countOfArticles, filter);
-            addUserUI();
+            renderArticles(0, countOfArticles, filter).then(() => {
+                addUserUI();
+            });
         });
 }
 
@@ -338,7 +241,6 @@ function showMore() {
         }
     }
 }
-
 function sortByTime() {
     renderArticles(0, articleModel.getLength());
     document.querySelector('.main-page').style.display = 'inline-block';
@@ -475,9 +377,13 @@ function sortByCars() {
 }
 
 function renderArticles(skip, top, filter) {
-    articleRenderer.removeArticlesFromDom();
-    const NewArticles = articleModel.getArticles(skip, top, filter);
-    articleRenderer.insertArticlesInDOM(NewArticles);
+    return new Promise((resolve, reject) => {
+        articleRenderer.removeArticlesFromDom();
+        dbModel.getArrayOfArticals(skip, top, filter).then((NewArticles) => {
+            articleRenderer.insertArticlesInDOM(NewArticles);
+            resolve();
+        });
+    });
 }
 
 document.addEventListener('DOMContentLoaded', startApp);

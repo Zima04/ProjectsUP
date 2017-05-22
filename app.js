@@ -14,8 +14,14 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.get('/articles', (req, res) => {
-    Articles.find((err, data) => !err ? res.json(data) : res.sendStatus(500));
+app.post('/filtered_articles', (req, res) => {
+    Articles.find(req.body.filter).exec((err, data) => {
+        data.sort((a, b) => {
+            return b.createdAt - a.createdAt;
+        });
+        const articles = data.slice(req.body.skip, req.body.top);
+        res.json(articles);
+    });
 });
 
 app.get('/articles:id', (req, res) => {
