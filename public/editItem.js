@@ -59,7 +59,6 @@ function changeFields(inputId) {
                     document.querySelector('.block-add-news').style.display = 'none';
                     document.querySelector('.in').style.display = 'none';
                     startApp();
-                    addUserUI();
                 });
         });
 }

@@ -2,7 +2,12 @@
 
 let slide = 1;
 
+
 function getNameItem(num) {
+   /* return dbModel.getArrayOfArticals(0, 6).then((items) => {
+       // console.log(items)
+        return items[num].title;
+    });*/
     const items = articleModel.getArticles(0, 6);
     return items[num].title;
 }

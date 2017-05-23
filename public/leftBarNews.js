@@ -3,20 +3,22 @@
 function getInformation() {
     articleModel.replaceArticles().then(
         (ready) => {
-            const get = articleModel.getArticles(0, 5);
-            let adress = 'Item';
-            const stringId = 'get-id';
-            for (let j = 0; j < 5; j += 1) {
-                adress = `Item${j}`;
-                document.getElementById(stringId + j).setAttribute(stringId + j, get[j]._id);
-                document.getElementsByClassName(adress)[0].childNodes[1].textContent = get[j].createdAt.toLocaleDateString('ru', options1);
-                let newTags = ' ';
-                for (let i = 0; i < get[j].tags.length; i += 1) {
-                    newTags += `#${get[j].tags[i]}`;
+            dbModel.getArrayOfArticals(0, 5).then((get) => {
+                let adress = 'Item';
+                const stringId = 'get-id';
+                for (let j = 0; j < 5; j += 1) {
+                    adress = `Item${j}`;
+                    document.getElementById(stringId + j).setAttribute(stringId + j, get[j]._id);
+                    document.getElementsByClassName(adress)[0].childNodes[1].textContent = get[j].createdAt.toLocaleDateString('ru', options1);
+                    let newTags = ' ';
+                    for (let i = 0; i < get[j].tags.length; i += 1) {
+                        newTags += `#${get[j].tags[i]}`;
+                    }
+                    document.getElementsByClassName(adress)[0].childNodes[3].textContent = newTags;
+                    document.getElementsByClassName(adress)[0].childNodes[6].textContent = get[j].title;
                 }
-                document.getElementsByClassName(adress)[0].childNodes[3].textContent = newTags;
-                document.getElementsByClassName(adress)[0].childNodes[6].textContent = get[j].title;
-            }
+            });
+
         });
 }
 let options1 = {

@@ -115,7 +115,6 @@ const articleModel = (function () {
         }
         return res;
     };
-    const getLength = () => articles.length;
     const reWrite = (obj) => {
         articles = obj;
     };
@@ -133,7 +132,6 @@ const articleModel = (function () {
         getArticle,
         validateArticle,
         isArticle,
-        getLength,
         reWrite,
         replaceArticles,
     };
@@ -205,28 +203,28 @@ const articleRenderer = (function () {
     };
 }());
 
-let countOfArticles = 2;
-
+let countOfArticles = 3;
+let presentCount;
 function startApp() {
     articleModel.replaceArticles().then(
         () => {
-            const outArticles = articleModel.getArticles(0, articleModel.getLength());
-            if (outArticles) {
-                articleModel.reWrite(outArticles);
-            }
-            countOfArticles += 3;
-            if (countOfArticles >= articleModel.getLength()) {
-                document.querySelector('.pagination-button').style.visibility = 'hidden';
-            }
+            dbModel.getArrayOfArticals().then((NewArticles) => {
+                presentCount = NewArticles.length;
+                countOfArticles += 3;
+                if (countOfArticles >= NewArticles.length) {
+                    document.querySelector('.pagination-button').style.visibility = 'hidden';
+                }
+            });
             articleRenderer.init();
             renderArticles(0, countOfArticles, filter).then(() => {
                 addUserUI();
             });
         });
+    getInformation();
 }
 
 function showMore() {
-    if (countOfArticles < articleModel.getLength()) {
+    if (countOfArticles < presentCount) {
         startApp();
         const username = localStorage.getItem('username');
         if (username) {
@@ -242,7 +240,7 @@ function showMore() {
     }
 }
 function sortByTime() {
-    renderArticles(0, articleModel.getLength());
+    renderArticles(0, presentCount);
     document.querySelector('.main-page').style.display = 'inline-block';
     document.querySelector('.edit-news').style.display = 'none';
     document.querySelector('.full-news').style.display = 'none';
@@ -259,7 +257,7 @@ function sortByTagSport() {
     document.querySelector('.full-news').style.display = 'none';
     document.querySelector('.block-add-news').style.display = 'none';
     document.querySelector('.in').style.display = 'none';
-    if (getSize(NewArticles) === 0) {
+    if (NewArticles.length === 0) {
         alert('Новости не найдены!');
         document.querySelector('.main-page').style.display = 'inline-block';
         document.querySelector('.edit-news').style.display = 'none';
@@ -280,7 +278,7 @@ function sortByTagPolitics() {
     document.querySelector('.full-news').style.display = 'none';
     document.querySelector('.block-add-news').style.display = 'none';
     document.querySelector('.in').style.display = 'none';
-    if (getSize(NewArticles) === 0) {
+    if (NewArticles.length === 0) {
         alert('Новости не найдены!');
         document.querySelector('.main-page').style.display = 'inline-block';
         document.querySelector('.edit-news').style.display = 'none';
@@ -301,7 +299,7 @@ function sortByAfiha() {
     document.querySelector('.full-news').style.display = 'none';
     document.querySelector('.block-add-news').style.display = 'none';
     document.querySelector('.in').style.display = 'none';
-    if (getSize(NewArticles) === 0) {
+    if (NewArticles.length === 0) {
         alert('Новости не найдены!');
         document.querySelector('.main-page').style.display = 'inline-block';
         document.querySelector('.edit-news').style.display = 'none';
@@ -322,7 +320,7 @@ function sortByHiTech() {
     document.querySelector('.full-news').style.display = 'none';
     document.querySelector('.block-add-news').style.display = 'none';
     document.querySelector('.in').style.display = 'none';
-    if (getSize(NewArticles) === 0) {
+    if (NewArticles.length === 0) {
         alert('Новости не найдены!');
         document.querySelector('.main-page').style.display = 'inline-block';
         document.querySelector('.edit-news').style.display = 'none';
@@ -343,7 +341,7 @@ function sortByBOOM() {
     document.querySelector('.full-news').style.display = 'none';
     document.querySelector('.block-add-news').style.display = 'none';
     document.querySelector('.in').style.display = 'none';
-    if (getSize(NewArticles) === 0) {
+    if (NewArticles.length === 0) {
         alert('Новости не найдены!');
         document.querySelector('.main-page').style.display = 'inline-block';
         document.querySelector('.edit-news').style.display = 'none';
@@ -364,7 +362,7 @@ function sortByCars() {
     document.querySelector('.full-news').style.display = 'none';
     document.querySelector('.block-add-news').style.display = 'none';
     document.querySelector('.in').style.display = 'none';
-    if (getSize(NewArticles) === 0) {
+    if (NewArticles.length === 0) {
         alert('Новости не найдены!');
         document.querySelector('.main-page').style.display = 'inline-block';
         document.querySelector('.edit-news').style.display = 'none';
@@ -388,8 +386,3 @@ function renderArticles(skip, top, filter) {
 
 document.addEventListener('DOMContentLoaded', startApp);
 
-function getSize(mas) {
-    let temp = [];
-    temp = mas;
-    return temp.length;
-}
