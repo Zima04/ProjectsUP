@@ -15,6 +15,23 @@ const dbModel = (function () {
         });
     }
 
+    function getArticleById(id) {
+        return new Promise((resolve, reject) => {
+            let req = new XMLHttpRequest();
+            req.open('GET', `/articles${id}`, true);
+            req.send();
+
+            req.onload = function () {
+                if (!req.responseText) return resolve();
+                return resolve(JSON.parse(req.responseText, (key, value) => {
+                    if (key === 'createdAt') return new Date(value);
+                    return value;
+                }))
+            };
+            req.onerror = () => reject(new Error('deleteArticle crashed.'));
+        });
+    }
+
     function addArtical(article) {
         return new Promise((resolve, reject) => {
             const req = new XMLHttpRequest();
@@ -126,5 +143,6 @@ const dbModel = (function () {
         logIn,
         logExit,
         getUserName,
+        getArticleById
     };
 }());

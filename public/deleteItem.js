@@ -1,8 +1,7 @@
 'use strict';
 
 function deleteItem(el) {
-    const article = articleModel.getArticle(el.dataset.id);
-    dbModel.deleteArtical(article._id).then(
+    dbModel.deleteArtical(el.dataset.id).then(
         () => {
             document.querySelector('.main-page').style.display = 'inline-block';
             document.querySelector('.edit-news').style.display = 'none';
@@ -12,8 +11,7 @@ function deleteItem(el) {
 }
 
 function deleteItemFromFull(el) {
-    const article = articleModel.getArticle(el._id);
-    dbModel.deleteArtical(article._id).then(
+    dbModel.deleteArtical(el._id).then(
         () => {
             document.querySelector('.full-news').style.display = 'none';
             document.querySelector('.main-page').style.display = 'inline-block';

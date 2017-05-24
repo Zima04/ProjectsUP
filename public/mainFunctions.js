@@ -248,130 +248,130 @@ function sortByTime() {
     document.querySelector('.in').style.display = 'none';
 }
 function sortByTagSport() {
-    articleRenderer.removeArticlesFromDom();
-    const NewArticles = articleModel.getArticles(0, 10, {tags: ['sport']});
-    articleRenderer.insertArticlesInDOM(NewArticles);
-    document.querySelector('.pagination-button').style.visibility = 'hidden';
-    document.querySelector('.main-page').style.display = 'inline-block';
-    document.querySelector('.edit-news').style.display = 'none';
-    document.querySelector('.full-news').style.display = 'none';
-    document.querySelector('.block-add-news').style.display = 'none';
-    document.querySelector('.in').style.display = 'none';
-    if (NewArticles.length === 0) {
-        alert('Новости не найдены!');
+    dbModel.getArrayOfArticals(0, 10, {tags: ['sport']}).then((NewArticles) => {
+        articleRenderer.removeArticlesFromDom();
+        articleRenderer.insertArticlesInDOM(NewArticles);
+        document.querySelector('.pagination-button').style.visibility = 'hidden';
         document.querySelector('.main-page').style.display = 'inline-block';
         document.querySelector('.edit-news').style.display = 'none';
         document.querySelector('.full-news').style.display = 'none';
         document.querySelector('.block-add-news').style.display = 'none';
         document.querySelector('.in').style.display = 'none';
-        startApp();
-        return 0;
-    }
+        if (NewArticles.length === 0) {
+            alert('Новости не найдены!');
+            document.querySelector('.main-page').style.display = 'inline-block';
+            document.querySelector('.edit-news').style.display = 'none';
+            document.querySelector('.full-news').style.display = 'none';
+            document.querySelector('.block-add-news').style.display = 'none';
+            document.querySelector('.in').style.display = 'none';
+            startApp();
+        }
+    });
 }
 function sortByTagPolitics() {
-    articleRenderer.removeArticlesFromDom();
-    const NewArticles = articleModel.getArticles(0, 10, {tags: ['politics']});
-    articleRenderer.insertArticlesInDOM(NewArticles);
-    document.querySelector('.pagination-button').style.visibility = 'hidden';
-    document.querySelector('.main-page').style.display = 'inline-block';
-    document.querySelector('.edit-news').style.display = 'none';
-    document.querySelector('.full-news').style.display = 'none';
-    document.querySelector('.block-add-news').style.display = 'none';
-    document.querySelector('.in').style.display = 'none';
-    if (NewArticles.length === 0) {
-        alert('Новости не найдены!');
+    dbModel.getArrayOfArticals(0, 10, {tags: ['politics']}).then((NewArticles) => {
+        articleRenderer.removeArticlesFromDom();
+        articleRenderer.insertArticlesInDOM(NewArticles);
+        document.querySelector('.pagination-button').style.visibility = 'hidden';
         document.querySelector('.main-page').style.display = 'inline-block';
         document.querySelector('.edit-news').style.display = 'none';
         document.querySelector('.full-news').style.display = 'none';
         document.querySelector('.block-add-news').style.display = 'none';
         document.querySelector('.in').style.display = 'none';
-        startApp();
-        return 0;
-    }
+        if (NewArticles.length === 0) {
+            alert('Новости не найдены!');
+            document.querySelector('.main-page').style.display = 'inline-block';
+            document.querySelector('.edit-news').style.display = 'none';
+            document.querySelector('.full-news').style.display = 'none';
+            document.querySelector('.block-add-news').style.display = 'none';
+            document.querySelector('.in').style.display = 'none';
+            startApp();
+        }
+    });
 }
 function sortByAfiha() {
-    articleRenderer.removeArticlesFromDom();
-    const NewArticles = articleModel.getArticles(0, 10, {tags: ['fashion']});
-    articleRenderer.insertArticlesInDOM(NewArticles);
-    document.querySelector('.pagination-button').style.visibility = 'hidden';
-    document.querySelector('.main-page').style.display = 'inline-block';
-    document.querySelector('.edit-news').style.display = 'none';
-    document.querySelector('.full-news').style.display = 'none';
-    document.querySelector('.block-add-news').style.display = 'none';
-    document.querySelector('.in').style.display = 'none';
-    if (NewArticles.length === 0) {
-        alert('Новости не найдены!');
+    dbModel.getArrayOfArticals(0, 10, {tags: ['fashion']}).then((NewArticles) => {
+        articleRenderer.removeArticlesFromDom();
+        articleRenderer.insertArticlesInDOM(NewArticles);
+        document.querySelector('.pagination-button').style.visibility = 'hidden';
         document.querySelector('.main-page').style.display = 'inline-block';
         document.querySelector('.edit-news').style.display = 'none';
         document.querySelector('.full-news').style.display = 'none';
         document.querySelector('.block-add-news').style.display = 'none';
         document.querySelector('.in').style.display = 'none';
-        startApp();
-        return 0;
-    }
+        if (NewArticles.length === 0) {
+            alert('Новости не найдены!');
+            document.querySelector('.main-page').style.display = 'inline-block';
+            document.querySelector('.edit-news').style.display = 'none';
+            document.querySelector('.full-news').style.display = 'none';
+            document.querySelector('.block-add-news').style.display = 'none';
+            document.querySelector('.in').style.display = 'none';
+            startApp();
+        }
+    });
 }
 function sortByHiTech() {
-    articleRenderer.removeArticlesFromDom();
-    const NewArticles = articleModel.getArticles(0, 10, {tags: ['hi-tech']});
-    articleRenderer.insertArticlesInDOM(NewArticles);
-    document.querySelector('.pagination-button').style.visibility = 'hidden';
-    document.querySelector('.main-page').style.display = 'inline-block';
-    document.querySelector('.edit-news').style.display = 'none';
-    document.querySelector('.full-news').style.display = 'none';
-    document.querySelector('.block-add-news').style.display = 'none';
-    document.querySelector('.in').style.display = 'none';
-    if (NewArticles.length === 0) {
-        alert('Новости не найдены!');
+    dbModel.getArrayOfArticals(0, 10, {tags: ['hi-tech']}).then((NewArticles) => {
+        articleRenderer.removeArticlesFromDom();
+        articleRenderer.insertArticlesInDOM(NewArticles);
+        document.querySelector('.pagination-button').style.visibility = 'hidden';
         document.querySelector('.main-page').style.display = 'inline-block';
         document.querySelector('.edit-news').style.display = 'none';
         document.querySelector('.full-news').style.display = 'none';
         document.querySelector('.block-add-news').style.display = 'none';
         document.querySelector('.in').style.display = 'none';
-        startApp();
-        return 0;
-    }
+        if (NewArticles.length === 0) {
+            alert('Новости не найдены!');
+            document.querySelector('.main-page').style.display = 'inline-block';
+            document.querySelector('.edit-news').style.display = 'none';
+            document.querySelector('.full-news').style.display = 'none';
+            document.querySelector('.block-add-news').style.display = 'none';
+            document.querySelector('.in').style.display = 'none';
+            startApp();
+        }
+    });
 }
 function sortByBOOM() {
-    articleRenderer.removeArticlesFromDom();
-    const NewArticles = articleModel.getArticles(0, 10, {tags: ['BOOM']});
-    articleRenderer.insertArticlesInDOM(NewArticles);
-    document.querySelector('.pagination-button').style.visibility = 'hidden';
-    document.querySelector('.main-page').style.display = 'inline-block';
-    document.querySelector('.edit-news').style.display = 'none';
-    document.querySelector('.full-news').style.display = 'none';
-    document.querySelector('.block-add-news').style.display = 'none';
-    document.querySelector('.in').style.display = 'none';
-    if (NewArticles.length === 0) {
-        alert('Новости не найдены!');
+    dbModel.getArrayOfArticals(0, 10, {tags: ['BOOM']}).then((NewArticles) => {
+        articleRenderer.removeArticlesFromDom();
+        articleRenderer.insertArticlesInDOM(NewArticles);
+        document.querySelector('.pagination-button').style.visibility = 'hidden';
         document.querySelector('.main-page').style.display = 'inline-block';
         document.querySelector('.edit-news').style.display = 'none';
         document.querySelector('.full-news').style.display = 'none';
         document.querySelector('.block-add-news').style.display = 'none';
         document.querySelector('.in').style.display = 'none';
-        startApp();
-        return 0;
-    }
+        if (NewArticles.length === 0) {
+            alert('Новости не найдены!');
+            document.querySelector('.main-page').style.display = 'inline-block';
+            document.querySelector('.edit-news').style.display = 'none';
+            document.querySelector('.full-news').style.display = 'none';
+            document.querySelector('.block-add-news').style.display = 'none';
+            document.querySelector('.in').style.display = 'none';
+            startApp();
+        }
+    });
 }
 function sortByCars() {
-    articleRenderer.removeArticlesFromDom();
-    const NewArticles = articleModel.getArticles(0, 10, {tags: ['cars']});
-    articleRenderer.insertArticlesInDOM(NewArticles);
-    document.querySelector('.pagination-button').style.visibility = 'hidden';
-    document.querySelector('.main-page').style.display = 'inline-block';
-    document.querySelector('.edit-news').style.display = 'none';
-    document.querySelector('.full-news').style.display = 'none';
-    document.querySelector('.block-add-news').style.display = 'none';
-    document.querySelector('.in').style.display = 'none';
-    if (NewArticles.length === 0) {
-        alert('Новости не найдены!');
+    dbModel.getArrayOfArticals(0, 10, {tags: ['cars']}).then((NewArticles) => {
+        articleRenderer.removeArticlesFromDom();
+        articleRenderer.insertArticlesInDOM(NewArticles);
+        document.querySelector('.pagination-button').style.visibility = 'hidden';
         document.querySelector('.main-page').style.display = 'inline-block';
         document.querySelector('.edit-news').style.display = 'none';
         document.querySelector('.full-news').style.display = 'none';
         document.querySelector('.block-add-news').style.display = 'none';
         document.querySelector('.in').style.display = 'none';
-        startApp();
-        return 0;
-    }
+        if (NewArticles.length === 0) {
+            alert('Новости не найдены!');
+            document.querySelector('.main-page').style.display = 'inline-block';
+            document.querySelector('.edit-news').style.display = 'none';
+            document.querySelector('.full-news').style.display = 'none';
+            document.querySelector('.block-add-news').style.display = 'none';
+            document.querySelector('.in').style.display = 'none';
+            startApp();
+        }
+    });
 }
 
 function renderArticles(skip, top, filter) {

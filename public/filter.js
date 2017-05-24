@@ -50,14 +50,15 @@ function isValidDate(val) {
 
 function startFilter() {
     if (getFilter()) {
-        const NewArticles = articleModel.getArticles(0, articleModel.getLength(), filter);
-        if (NewArticles !== 0) {
-            articleRenderer.removeArticlesFromDom();
-            articleRenderer.insertArticlesInDOM(NewArticles);
-            document.querySelector('.pagination-button').style.visibility = 'hidden';
-        } else {
-            alert('Новости не найдены!');
-        }
+        dbModel.getArrayOfArticals(0, 15, filter).then((NewArticles) => {
+            if (NewArticles !== 0) {
+                articleRenderer.removeArticlesFromDom();
+                articleRenderer.insertArticlesInDOM(NewArticles);
+                document.querySelector('.pagination-button').style.visibility = 'hidden';
+            } else {
+                alert('Новости не найдены!');
+            }
+        });
     } else {
         alert('Заполните поля для фильтра!');
         document.querySelector('.main-page').style.display = 'inline-block';

@@ -25,7 +25,7 @@ app.post('/filtered_articles', (req, res) => {
 });
 
 app.get('/articles:id', (req, res) => {
-    Articles.findById(req.params.id,
+    Articles.findById({_id: req.params.id},
         (err, data) => !err ? res.json(data) : res.sendStatus(500));
 });
 

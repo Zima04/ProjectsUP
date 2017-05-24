@@ -4,34 +4,36 @@ function getItem(elem) {
     document.querySelector('.main-page').style.display = 'none';
     document.querySelector('.full-news').style.display = 'none';
     document.querySelector('.edit-news').style.display = 'inline-block';
-    const article = articleModel.getArticle(elem.dataset.id);
-    document.blockChangeItem.setAttribute('get-id', article._id);
-    document.getElementById('get-name').value = article.title;
-    document.getElementById('get-message').value = article.summary;
-    document.getElementById('get-img').value = article.img;
-    let newTags = ' ';
-    for (let i = 0; i < article.tags.length - 1; i += 1) {
-        newTags += `${article.tags[i]} `;
-    }
-    newTags += article.tags[article.tags.length - 1];
-    document.getElementById('get-tags').value = newTags;
+    dbModel.getArticleById(elem.dataset.id).then((article) => {
+        document.blockChangeItem.setAttribute('get-id', article._id);
+        document.getElementById('get-name').value = article.title;
+        document.getElementById('get-message').value = article.summary;
+        document.getElementById('get-img').value = article.img;
+        let newTags = ' ';
+        for (let i = 0; i < article.tags.length - 1; i += 1) {
+            newTags += `${article.tags[i]} `;
+        }
+        newTags += article.tags[article.tags.length - 1];
+        document.getElementById('get-tags').value = newTags;
+    });
 }
 
 function getItemFromFull(elem) {
     document.querySelector('.main-page').style.display = 'none';
     document.querySelector('.full-news').style.display = 'none';
     document.querySelector('.edit-news').style.display = 'inline-block';
-    const article = articleModel.getArticle(elem._id);
-    document.blockChangeItem.setAttribute('get-id', article._id);
-    document.getElementById('get-name').value = article.title;
-    document.getElementById('get-message').value = article.summary;
-    document.getElementById('get-img').value = article.img;
-    let newTags = '';
-    for (let i = 0; i < article.tags.length - 1; i += 1) {
-        newTags += `${article.tags[i]} `;
-    }
-    newTags += article.tags[article.tags.length - 1];
-    document.getElementById('get-tags').value = newTags;
+    dbModel.getArticleById(elem.dataset.id).then((article) => {
+        document.blockChangeItem.setAttribute('get-id', article._id);
+        document.getElementById('get-name').value = article.title;
+        document.getElementById('get-message').value = article.summary;
+        document.getElementById('get-img').value = article.img;
+        let newTags = '';
+        for (let i = 0; i < article.tags.length - 1; i += 1) {
+            newTags += `${article.tags[i]} `;
+        }
+        newTags += article.tags[article.tags.length - 1];
+        document.getElementById('get-tags').value = newTags;
+    });
 }
 
 function changeFields(inputId) {
@@ -50,7 +52,8 @@ function changeFields(inputId) {
                 createdAt: new Date(),
                 content: message,
                 img: image,
-                tags: newTags}).then(
+                tags: newTags
+            }).then(
                 () => {
                     alert('Новость редактирована!');
                     document.querySelector('.main-page').style.display = 'inline-block';
