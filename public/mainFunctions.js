@@ -4,93 +4,6 @@ const articleModel = (function () {
     const arrayOfTags = ['cars', 'politics', 'hi-tech', 'sport', 'fashion', 'BOOM', 'Russia', 'IT'];
     let articles = [{}];
 
-    const getArticles = (skip, top, filterConfig) => {
-        if (!skip) {
-            skip = 0;
-        }
-        if (skip >= articles.length) {
-            return null;
-        }
-        if (!top) {
-            top = 10;
-        }
-
-        articles.sort((a, b) => b.createdAt - a.createdAt);
-
-        const newArticles = [];
-
-        if (!filterConfig) {
-            for (let i = skip; i < articles.length && i < top + skip; i += 1) {
-                newArticles.push(articles[i]);
-            }
-        } else {
-            if (filterConfig.author && filterConfig.tags && filterConfig.createdAt) {
-                for (let i = skip; i < articles.length && i < top + skip; i += 1) {
-                    if (filterConfig.author === articles[i].author && findTag(filterConfig.tags, articles[i].tags)
-                        && filterConfig.createdAt.getTime() === articles[i].createdAt.getTime()) {
-                        newArticles.push(articles[i]);
-                    }
-                }
-            }
-
-            if (filterConfig.author && filterConfig.tags && !filterConfig.createdAt) {
-                for (let i = skip; i < articles.length && i < top + skip; i += 1) {
-                    if (filterConfig.author === articles[i].author && findTag(filterConfig.tags, articles[i].tags)) {
-                        newArticles.push(articles[i]);
-                    }
-                }
-            }
-
-            if (filterConfig.author && !filterConfig.tags && filterConfig.createdAt) {
-                for (let i = skip; i < articles.length && i < top + skip; i += 1) {
-                    if (filterConfig.author === articles[i].author && filterConfig.createdAt.getTime() === articles[i].createdAt.getTime()) {
-                        newArticles.push(articles[i]);
-                    }
-                }
-            }
-
-            if (filterConfig.author && !filterConfig.tags && !filterConfig.createdAt) {
-                for (let i = skip; i < articles.length && i < top + skip; i += 1) {
-                    if (filterConfig.author === articles[i].author) {
-                        newArticles.push(articles[i]);
-                    }
-                }
-            }
-
-            if (!filterConfig.author && filterConfig.tags && filterConfig.createdAt) {
-                for (let i = skip; i < articles.length && i < top + skip; i += 1) {
-                    if (findTag(filterConfig.tags, articles[i].tags) && filterConfig.createdAt.getTime() === articles[i].createdAt.getTime()) {
-                        newArticles.push(articles[i]);
-                    }
-                }
-            }
-
-            if (!filterConfig.author && filterConfig.tags && !filterConfig.createdAt) {
-                for (let i = skip; i < articles.length && i < top + skip; i += 1) {
-                    if (findTag(filterConfig.tags, articles[i].tags)) {
-                        newArticles.push(articles[i]);
-                    }
-                }
-            }
-
-            if (!filterConfig.author && !filterConfig.tags && filterConfig.createdAt) {
-                for (let i = skip; i < articles.length && i < top + skip; i += 1) {
-                    if (filterConfig.createdAt.getFullYear() === articles[i].createdAt.getFullYear() && filterConfig.createdAt.getDate() === articles[i].createdAt.getDate() && filterConfig.createdAt.getMonth() === articles[i].createdAt.getMonth()) {
-                        newArticles.push(articles[i]);
-                    }
-                }
-            }
-        }
-        return newArticles;
-    };
-    const findTag = (tag, articleTags) => {
-        for (let i = 0; i < articleTags.length; i += 1) {
-            if (tag.some(elem => elem === articleTags[i])) {
-                return true;
-            }
-        }
-        return false;
-    };
     const getArticle = (id) => {
         const index = isArticle(id);
         if (index === -1) {
@@ -128,7 +41,7 @@ const articleModel = (function () {
     };
 
     return {
-        getArticles,
+       // getArticles,
         getArticle,
         validateArticle,
         isArticle,
@@ -248,7 +161,7 @@ function sortByTime() {
     document.querySelector('.in').style.display = 'none';
 }
 function sortByTagSport() {
-    dbModel.getArrayOfArticals(0, 10, {tags: ['sport']}).then((NewArticles) => {
+    dbModel.getArrayOfArticals(0, 10, {tags: { $all : ['sport'] }}).then((NewArticles) => {
         articleRenderer.removeArticlesFromDom();
         articleRenderer.insertArticlesInDOM(NewArticles);
         document.querySelector('.pagination-button').style.visibility = 'hidden';
@@ -269,7 +182,7 @@ function sortByTagSport() {
     });
 }
 function sortByTagPolitics() {
-    dbModel.getArrayOfArticals(0, 10, {tags: ['politics']}).then((NewArticles) => {
+    dbModel.getArrayOfArticals(0, 10, {tags: { $all : ['politics'] }}).then((NewArticles) => {
         articleRenderer.removeArticlesFromDom();
         articleRenderer.insertArticlesInDOM(NewArticles);
         document.querySelector('.pagination-button').style.visibility = 'hidden';
@@ -290,7 +203,7 @@ function sortByTagPolitics() {
     });
 }
 function sortByAfiha() {
-    dbModel.getArrayOfArticals(0, 10, {tags: ['fashion']}).then((NewArticles) => {
+    dbModel.getArrayOfArticals(0, 10, {tags: { $all : ['fashion'] }}).then((NewArticles) => {
         articleRenderer.removeArticlesFromDom();
         articleRenderer.insertArticlesInDOM(NewArticles);
         document.querySelector('.pagination-button').style.visibility = 'hidden';
@@ -311,7 +224,7 @@ function sortByAfiha() {
     });
 }
 function sortByHiTech() {
-    dbModel.getArrayOfArticals(0, 10, {tags: ['hi-tech']}).then((NewArticles) => {
+    dbModel.getArrayOfArticals(0, 10, {tags: { $all : ['hi-tech'] }}).then((NewArticles) => {
         articleRenderer.removeArticlesFromDom();
         articleRenderer.insertArticlesInDOM(NewArticles);
         document.querySelector('.pagination-button').style.visibility = 'hidden';
@@ -332,7 +245,7 @@ function sortByHiTech() {
     });
 }
 function sortByBOOM() {
-    dbModel.getArrayOfArticals(0, 10, {tags: ['BOOM']}).then((NewArticles) => {
+    dbModel.getArrayOfArticals(0, 10, {tags: { $all : ['BOOM'] }}).then((NewArticles) => {
         articleRenderer.removeArticlesFromDom();
         articleRenderer.insertArticlesInDOM(NewArticles);
         document.querySelector('.pagination-button').style.visibility = 'hidden';
@@ -353,7 +266,7 @@ function sortByBOOM() {
     });
 }
 function sortByCars() {
-    dbModel.getArrayOfArticals(0, 10, {tags: ['cars']}).then((NewArticles) => {
+    dbModel.getArrayOfArticals(0, 10, {tags: { $all : ['cars'] }}).then((NewArticles) => {
         articleRenderer.removeArticlesFromDom();
         articleRenderer.insertArticlesInDOM(NewArticles);
         document.querySelector('.pagination-button').style.visibility = 'hidden';

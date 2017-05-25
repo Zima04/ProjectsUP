@@ -15,7 +15,7 @@ function getFilter() {
     }
     if (tags) {
         tags = tags.split(/[\s.,]+/);
-        filter.tags = tags;
+        filter.tags = { $all: tags };
         flag = true;
     }
     if (createdAt) {
@@ -35,13 +35,13 @@ function isValidDate(val) {
     const valR = val.split(/-/);
     valR[1] -= 1;
     const curDate = new Date(valR[2], valR[1], valR[0]);
-    if (!(curDate.getFullYear() === valR[2])) {
+    if (!(curDate.getFullYear() == valR[2])) {
         return false;
     }
-    if (!(curDate.getMonth() === valR[1])) {
+    if (!(curDate.getMonth() == valR[1])) {
         return false;
     }
-    if (!(curDate.getDate() === valR[0])) {
+    if (!(curDate.getDate() == valR[0])) {
         return false;
     }
 
@@ -51,7 +51,7 @@ function isValidDate(val) {
 function startFilter() {
     if (getFilter()) {
         dbModel.getArrayOfArticals(0, 15, filter).then((NewArticles) => {
-            if (NewArticles !== 0) {
+            if (NewArticles.length !== 0) {
                 articleRenderer.removeArticlesFromDom();
                 articleRenderer.insertArticlesInDOM(NewArticles);
                 document.querySelector('.pagination-button').style.visibility = 'hidden';
