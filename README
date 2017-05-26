@@ -1,0 +1,7 @@
+Установка
+1) git clone https://github.com/Zima04/ProjectsUP.git
+2) Открываем консоль в скачанном проекте и прописываем npm install
+3) Далее прописываем mongoimport --db Valdis --collection articles --file ../import_mongo/articles.json
+4) Далее прописываем mongoimport --db Valdis --collection users --file ../import_mongo/users.json
+5) Прописываем node app.js в консоли
+6) Запускаем в браузере Google Chrome и прописываем в адресной строке localhost:3000
