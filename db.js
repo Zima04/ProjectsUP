@@ -1,16 +1,19 @@
 const mongoose = require('mongoose');
+require('mongoose-double')(mongoose);
+
 const db = mongoose.createConnection('mongodb://localhost/Valdis');
 
 db.on('error', err => console.log('connection error to DB.', err.message));
 db.once('open', callback => console.log('connected to DB'));
 
+const mScheme = mongoose.Schema.Types;
 const articles = new mongoose.Schema({
     author: String,
     title: String,
     content: String,
     summary: String,
     img: String,
-    createdAt: Date,
+    createdAt: mScheme.Double,
     tags: [String]
 });
 

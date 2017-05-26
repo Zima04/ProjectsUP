@@ -22,7 +22,7 @@ function getItemFromFull(elem) {
     document.querySelector('.main-page').style.display = 'none';
     document.querySelector('.full-news').style.display = 'none';
     document.querySelector('.edit-news').style.display = 'inline-block';
-    dbModel.getArticleById(elem.dataset.id).then((article) => {
+    dbModel.getArticleById(elem._id).then((article) => {
         document.blockChangeItem.setAttribute('get-id', article._id);
         document.getElementById('get-name').value = article.title;
         document.getElementById('get-message').value = article.summary;
@@ -44,12 +44,13 @@ function changeFields(inputId) {
             const tags = document.blockChangeItem.tags.value;
             const image = document.blockChangeItem.image.value;
             const newTags = tags.split(' ');
+            const date = new Date();
             dbModel.editArtical({
                 author: name,
                 id: inputId,
                 title: head,
                 summary: message,
-                createdAt: new Date(),
+                createdAt: date.getTime(),
                 content: message,
                 img: image,
                 tags: newTags

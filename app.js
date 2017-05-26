@@ -6,26 +6,30 @@ const Users = require('./db.js').users;
 const Articles = require('./db.js').articles;
 const session = require('express-session');
 const sessionStore = require('connect-mongo')(session);
-const store = new sessionStore({url: 'mongodb://localhost/Valdis'});
+const store = new sessionStore({ url: 'mongodb://localhost/Valdis' });
 const bodyParser = require('body-parser');
 
 app.set('port', (process.env.PORT || 3000));
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/filtered_articles', (req, res) => {
-    Articles.find(req.body.filter).exec((err, data) => {
-        data.sort((a, b) => {
-            return b.createdAt - a.createdAt;
-        });
+    let filter = req.body.filter;
+    if (filter && filter.createdAt) {
+        const date = new Date(filter.createdAt);
+        const from = date.getTime();
+        const to = date.setDate(date.getDate() + 1);
+        filter.createdAt = { $gte: from, $lte: to };
+    }
+    Articles.find(filter).sort({ createdAt: -1 }).exec((err, data) => {
         const articles = data.slice(req.body.skip, req.body.top);
         res.json(articles);
     });
 });
 
 app.get('/articles:id', (req, res) => {
-    Articles.findById({_id: req.params.id},
+    Articles.findById({ _id: req.params.id },
         (err, data) => !err ? res.json(data) : res.sendStatus(500));
 });
 
@@ -40,7 +44,7 @@ app.delete('/articles:id', (req, res) => {
 });
 
 app.patch('/articles', (req, res) => {
-    Articles.findByIdAndUpdate(req.body.id, {$set: req.body},
+    Articles.findByIdAndUpdate(req.body.id, { $set: req.body },
         err => !err ? res.sendStatus(200) : res.sendStatus(500));
 });
 
@@ -62,19 +66,19 @@ passport.deserializeUser((user, done) => {
     done(error, user);
 });
 
-passport.use('login', new LocalStrategy({passReqToCallback: true},
+passport.use('login', new LocalStrategy({ passReqToCallback: true },
     (req, username, password, done) => {
-        Users.findOne({username}, (err, user) => {
+        Users.findOne({ username }, (err, user) => {
             if (err) {
                 return done(err);
             }
             if (!user) {
                 console.log(`User Not Found with username ${username}`);
-                return done(null, false, {message: 'user not found'});
+                return done(null, false, { message: 'user not found' });
             }
             if (password !== user.password) {
                 console.log('Invalid Password');
-                return done(null, false, {message: 'incorrect password'});
+                return done(null, false, { message: 'incorrect password' });
             }
             done(null, user);
         });
