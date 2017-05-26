@@ -41,7 +41,6 @@ const articleModel = (function () {
     };
 
     return {
-       // getArticles,
         getArticle,
         validateArticle,
         isArticle,

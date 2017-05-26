@@ -44,7 +44,6 @@ function isValidDate(val) {
     if (!(curDate.getDate() == valR[0])) {
         return false;
     }
-
     return curDate;
 }
 
